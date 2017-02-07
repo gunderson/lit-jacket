@@ -5,7 +5,7 @@ import AppView from './views/App-View';
 
 const remotes = require( '../../../data/remotes.json' );
 // TODO: get state default state
-const presets = require( '../../data/presets/presets.json' );
+const presets = require( '../../data/presets.json' );
 const state = require( '../../data/state.default.json' );
 
 window.$ = $;
@@ -20,8 +20,8 @@ const appView = new AppView( {
 } );
 Base.prototype.APP = model;
 Base.prototype.templates = require( './templates' );
-// model.connect()
-// 	.then( appView.render );
+model.on( 'connect', appView.render );
+model.connect();
 
 
-appView.render();
+// appView.render();

@@ -2,7 +2,7 @@
 	"device": {
 		"port": 80,
 		"name": "litjacket",
-		"address": "0.0.0.0"
+		"address": "localhost"
 	},
 	"remote": {
 		"port": 80,

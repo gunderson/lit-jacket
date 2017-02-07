@@ -58,13 +58,12 @@ export default class ControlFormView extends View {
 		}, options ) );
 	}
 	onRangeInput( val, $el ) {
-		$el.val( val )
-			.parent()
+		console.log( 'onRangeInput', arguments )
+		$el.parent()
 			.find( 'input' )
 			.val( val );
 	}
 	valToFloat( $el ) {
-		console.log( $el.val() )
 		return parseFloat( $el.val() );
 	}
 

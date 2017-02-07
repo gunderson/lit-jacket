@@ -1,8 +1,9 @@
+const _ = require( 'lodash' );
 const path = require( 'path' );
 const Promise = require( 'bluebird' );
 const fs = Promise.promisifyAll( require( 'fs-extra' ) );
 const BackboneEvents = require( 'backbone-events-standalone' );
-import complieRecordFiles from '../lib/complieRecordFiles';
+const compileRecordFiles = require( './lib/compileRecordFiles' );
 
 const dataPath = path.resolve( '../../data/' );
 const presetPath = path.resolve( dataPath, 'presets/' );
@@ -10,15 +11,15 @@ const colormapsPath = path.resolve( '../colormaps/' );
 
 module.exports = function socket( io, model ) {
 	return io.on( 'connection', ( socket ) => {
-		BackboneEvents.mixin( socket );
+		// BackboneEvents.mixin( socket );
 
 		socket.on( 'subscribe:sensor', ( eventName ) => {
 			switch ( eventName ) {
 				case 'mic':
-					socket.listenTo( controller, 'change:mic', ( event ) => socket.emit( `change:${name}`, event.val ) );
+					model.on( 'change:mic', ( event ) => socket.emit( `change:${name}`, event.val ) );
 					break;
 				case 'motion':
-					socket.listenTo( controller, 'change:motion', ( event ) => socket.emit( `change:${name}`, event.val ) );
+					model.on( 'change:motion', ( event ) => socket.emit( `change:${name}`, event.val ) );
 					break;
 			}
 		} );
@@ -36,7 +37,7 @@ module.exports = function socket( io, model ) {
 
 				} )
 				// recompile preset list
-				.then( () => complieRecordFiles( presetPath ) )
+				.then( () => compileRecordFiles( presetPath ) )
 				.catch( ( err ) => console.error( err ) );
 		} );
 
@@ -62,11 +63,18 @@ module.exports = function socket( io, model ) {
 
 		// for all attributes
 		_.each( model.attributes, ( val, name ) => {
-			socket.on( `change:${name}`, ( event ) => model[ event.name ] = event.val );
-			socket.listenTo( model, `change:${name}`, ( event ) => socket.emit( `change:${name}`, event.val ) );
-		} ) socket.on( 'disconnect', () => {
-			// stop listening
-			socket.stopListening();
+			socket.on( `change:${name}`, ( event ) => {
+				model[ event.name ] = event.value;
+			} );
+			// FIXME: Memory leak here
+			model.on( `change:${name}`, ( event ) => socket.emit( `change:${name}`, _.pick( event, [ 'name', 'value' ] ) ) );
 		} )
+
+		socket.on( 'disconnect', () => {
+			// stop listening
+			// socket.stopListening();
+		} );
+
+		socket.emit( 'state', model.toJSON() );
 	} )
 }

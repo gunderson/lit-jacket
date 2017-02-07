@@ -1,8 +1,8 @@
-import Model from '../../../lib/peak-front-end/models/Model';
+const Model = require( '../../../lib/peak-front-end/js/models/Model' );
 
-const stateAttributes = require( '../../data/state.json' );
+const stateAttributes = require( '../../../data/state.json' );
 
-module.exports = class AppModel extends Model {
+class AppModel extends Model {
 	constructor( attributes, options ) {
 		super(
 			Model.merge( stateAttributes, attributes ),
@@ -12,3 +12,4 @@ module.exports = class AppModel extends Model {
 		);
 	}
 }
+module.exports = AppModel;

@@ -1,11 +1,11 @@
-import path from 'path';
-import fs from 'fs-extra';
-import Promise from 'bluebird';
-import Server from './js/Server';
-import complieRecordFiles from './lib/complieRecordFiles';
+const path = require( 'path' );
+const fs = require( 'fs-extra' );
+const Promise = require( 'bluebird' );
+const Server = require( './js/Server' );
+const compileRecordFiles = require( './js/lib/compileRecordFiles' );
 
 // prep data
-complieRecordFiles( '../data/presets' )
+compileRecordFiles( '../data/presets' )
 	.then( () => {
 
 		// get data

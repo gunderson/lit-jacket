@@ -1,14 +1,14 @@
 'use strict';
 const path = require( 'path' );
-const log = require( '../lib/js/log' );
 const express = require( 'express' );
 const socketio = require( 'socket.io' );
 const _ = require( 'lodash' );
+const log = require( './lib/log' );
 
 const Controller = require( './Controller' );
 const AppModel = require( './models/App-Model' );
 
-const SetupSocket = require( './sockets' );
+const SetupSocket = require( './socket' );
 
 // ---------------------------------------------------------
 // Middleware includes
@@ -19,7 +19,7 @@ const bodyParser = require( 'body-parser' );
 const logger = require( 'morgan' );
 const multer = require( 'multer' );
 const cacheResponseDirective = require( 'express-cache-response-directive' );
-const HeaderUtils = require( '../lib/js/HeaderUtils' );
+const HeaderUtils = require( './lib/HeaderUtils' );
 
 // ---------------------------------------------------------
 // Routes
@@ -36,7 +36,12 @@ class Server {
 			.Server( app );
 		var io = socketio( server );
 
-		var model = new AppModel( options.state, _.pick( options, [ 'presets', 'remotes', 'credentials' ] ) );
+		var model = new AppModel(
+			_.extend( {},
+				options.state, {
+					presets: options.presets
+				} ),
+			_.pick( options, [ 'remotes', 'credentials' ] ) );
 		var controller = new Controller( model );
 
 		// ---------------------------------------------------------
@@ -56,7 +61,11 @@ class Server {
 
 		// general response prep
 		app.use( cacheResponseDirective() );
-		app.use( '/*', ( req, res, next ) => {
+		app.use( [
+			'/update-remote',
+			'/presets',
+			'/state'
+		], ( req, res, next ) => {
 			res.cacheControl( {
 				maxAge: 300
 			} );
@@ -90,7 +99,7 @@ class Server {
 
 		// ---------------------------------------------------------
 		// Start Server
-		app.listen( 80, function() {} );
+		server.listen( options.remotes.device.port, function() {} );
 	}
 }
 

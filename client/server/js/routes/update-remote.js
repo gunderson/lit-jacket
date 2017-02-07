@@ -1,10 +1,10 @@
 const path = require( 'path' );
 const Promise = require( 'bluebird' );
-const makeHash = require( '../../../../lib/js/make-hash' );
+const makeHash = require( '../../../lib/js/make-hash' );
 const rp = require( 'request-promise' );
 
 
-export default function( model ) {
+module.exports = function( model ) {
 
 	return route = ( req, res ) => {
 		let myIp

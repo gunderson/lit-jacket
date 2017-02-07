@@ -1,7 +1,7 @@
 const fs = require( 'fs-extra' );
 const path = require( 'path' );
 const Promise = require( 'bluebird' );
-const makeHash = require( '../../../../lib/js/make-hash' );
+const makeHash = require( '../../../lib/js/make-hash' );
 
 fs = Promise.promisifyAll( fs );
 
