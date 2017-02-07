@@ -1,11 +1,11 @@
-import path from 'path';
-import fs from 'fs-extra';
-import Server from './js/Server';
+const path = require('path')
+// const fs = require('fs-extra')
+const Server = require('./js/Server')
 
-// get data
-const remotes = require( path.resolve( __dirname, '../../lib/remotes.json' ) );
+// // get data
+// const remotes = require( path.resolve( __dirname, '../../lib/remotes.json' ) );
 
 // start server
 const server = new Server( {
-	remotes
+	// remotes
 } );

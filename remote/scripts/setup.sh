@@ -14,6 +14,9 @@ opkg update
 opkg upgrade
 opkg install $(cat apt-packages) -y
 
+# install node packages
+
+npm install -g pm2
 
 # change to application root
 
