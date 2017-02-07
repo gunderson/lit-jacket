@@ -1,8 +1,8 @@
 'use strict';
 const path = require( 'path' );
-const log = require( '../lib/js/log' );
+const log = require( './lib/log' );
 const express = require( 'express' );
-const Controller = require( './Controller' );
+// const Controller = require( './Controller' );
 
 // ---------------------------------------------------------
 // Middleware includes
@@ -11,13 +11,13 @@ const Controller = require( './Controller' );
 const bodyParser = require( 'body-parser' );
 const logger = require( 'morgan' );
 const cacheResponseDirective = require( 'express-cache-response-directive' );
-const HeaderUtils = require( '../lib/js/HeaderUtils' );
+const HeaderUtils = require( './lib/HeaderUtils' );
 
 class Server {
 	constructor( options ) {
 		var remotes = options.remotes;
 		var app = express();
-		var controller = new Controller();
+		// var controller = new Controller();
 
 		// ---------------------------------------------------------
 		// Middleware
@@ -62,7 +62,8 @@ class Server {
 
 		// ---------------------------------------------------------
 		// Start Server
-		app.listen( 80, function() {} );
+		app.listen( process.env.PORT || 3000, function() {} );
+		// app.listen( 80, function() {} );
 	}
 }
 

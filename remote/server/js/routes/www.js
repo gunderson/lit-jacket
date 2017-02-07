@@ -6,4 +6,4 @@ const route = ( req, res ) => {
 
 };
 
-export default express.static( '../../../www/dist/' );
+module.exports = express.static( '../../../www/dist/' );
