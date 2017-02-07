@@ -6,6 +6,7 @@ const _ = require( 'lodash' );
 const Promise = require( 'bluebird' );
 const getPixels = Promise.promisify( require( 'get-pixels' ) );
 const SerialPort = require( 'serialport' );
+const Model = require( '../../lib/peak-front-end/js/models/Model' );
 
 let port;
 
@@ -19,14 +20,18 @@ const COMMANDS = {
 // ------------------------------------------------------------
 
 // animation
-
+// TODO: move to model
 let pixels, w, h, pxdepth;
 let currentRow = 0;
-let floatX = 0;
-let floatY = 1;
+// let positionX = 0;
+// let positionY = 0;
+// let driftX = 0;
+// let driftY = 1;
+// let colormapScaleX = 1;
+// let colormapScaleY = 1;
 
 // animation player
-
+// TODO: move to model
 let elapsedTime = 0;
 let lastTickTime = 0;
 let tickCount = 0;
@@ -37,7 +42,7 @@ let isPlaying = false;
 
 // colormap
 
-let imagePath = path.resolve( __dirname, '../image-cache/' );
+let imagePath = path.resolve( __dirname, '../colormaps/' );
 let colormapFileName = 'colormap.png';
 let colormapData;
 let imageData;
@@ -57,8 +62,11 @@ let pixelArrays = [
 // SETUP
 // ------------------------------------------------------------
 
-class Controller extends EventEmitter {
-	constructor() {
+let model;
+
+class Controller {
+	constructor( dataModel ) {
+		model = dataModel;
 		let setupPromise = Promise.all( [
 			setupPort(),
 			setColormap( path.join( imagePath, colormapFileName ) )
@@ -134,18 +142,20 @@ function stop() {
 function reset() {
 	stop();
 	currentRow = 0;
-	elapsedTime = 0;
-	floatX = Math.abs( floatX );
-	floatY = Math.abs( floatY );
+	model.positionY = 0;
+	model.positionX = 0;
+	model.elapsedTime = 0;
+	model.driftX = Math.abs( model.driftX );
+	model.driftY = Math.abs( model.driftY );
 }
 
 function _tick() {
 	if ( !isPlaying ) return;
 	now = Date.now();
-	elapsedTime += now - lastTickTime;
+	model.elapsedTime += now - lastTickTime;
 	lastTickTime = now;
-	tickCount = Math.round( elapsedTime / millisPerTick );
-	let millisToNextTick = ( tickCount + 1 ) * millisPerTick - elapsedTime
+	tickCount = Math.round( model.elapsedTime / millisPerTick );
+	let millisToNextTick = ( tickCount + 1 ) * millisPerTick - model.elapsedTime
 	if ( update() && draw() ) {
 		tickTimeout = setTimeout( _tick, millisToNextTick );
 	}
@@ -157,16 +167,19 @@ function update() {
 	}
 	let imageRow = Array.prototype.slice.call( pixels, w * pxdepth * currentRow, w * pxdepth * ( currentRow + 1 ) );
 	pixelArrays = distributePixelData( imageRow, pixelArrays );
-	currentRow += floatY;
+	currentRow += model.driftY;
+	model.positionX += model.driftX;
+	model.positionY += model.driftY;
 
 	// bounce floatation
-	if ( currentRow >= h - 1 || currentRow <= 0 ) floatY *= -1;
+	if ( currentRow >= h - 1 || currentRow <= 0 ) model.driftY *= -1;
 	return true;
 };
 
 function draw() {
 	if ( !colormapData ) return false;
 	let dataBuffer = _.flattenDeep( pixelArrays );
+	model.colors = dataBuffer;
 	sendCommand( COMMANDS.DISPLAY_PIXELS, dataBuffer );
 	return true;
 };

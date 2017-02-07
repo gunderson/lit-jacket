@@ -1,20 +1,27 @@
-import ControlFormModel from './models/control-form-model';
-import DisplayStateModel from './models/control-form-model';
-import ControlFormView from './views/control-form-view';
-import DisplayStateView from './views/display-state-view';
+const $ = require( 'jquery' );
+import Base from '../../lib/peak-front-end/js/Base';
+import AppModel from './models/App-Model';
+import AppView from './views/App-View';
 
-const remotes = require( '../../../lib/remotes.json' );
+const remotes = require( '../../../data/remotes.json' );
+// TODO: get state default state
+const presets = require( '../../data/presets.json' );
+const state = require( '../../data/state.default.json' );
 
-const controlFormView = new ControlFormView( {
-	model: new ControlFormModel( {
-		remotes
-	} )
+window.$ = $;
+
+state.presets = presets;
+
+const model = new AppModel( state, {
+	remotes
 } );
-const displayStateView = new DisplayStateView( {
-	model: new DisplayStateModel( {
-		remotes
-	} )
+const appView = new AppView( {
+	model
 } );
+Base.prototype.APP = model;
+Base.prototype.templates = require( './templates' );
+model.on( 'connect', appView.render );
+model.connect();
 
-controlFormView.model.fetch();
-displayStateView.model.fetch();
+
+// appView.render();

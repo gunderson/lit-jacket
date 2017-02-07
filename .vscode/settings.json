@@ -1,0 +1,6 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+	"pugbeautify.fillTab": true,
+	"pugbeautify.omitDiv": true,
+	"pugbeautify.tabSize": true
+}

@@ -1,0 +1,12 @@
+{
+	"device": {
+		"port": 80,
+		"name": "litjacket",
+		"address": "localhost"
+	},
+	"remote": {
+		"port": 80,
+		"name": "litjacket",
+		"address": "lit-jacket.theorigin.net"
+	}
+}

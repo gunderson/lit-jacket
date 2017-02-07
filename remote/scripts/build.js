@@ -2,9 +2,6 @@ const path = require( 'path' );
 const fs = require( 'fs-extra' );
 const Promise = require( 'bluebird' );
 const log = require( '../lib/log' );
-import * as rollup from 'rollup';
-import * as pug from 'pug';
-import * as sass from 'sass';
 
 // ------------------------------------------------
 // BUILD WWW
@@ -12,8 +9,8 @@ import * as sass from 'sass';
 
 const dest = '../www/dist/';
 
+// rollup + babel
+
 // compile sass
 
 // compile pug
-
-// rollup + babel
