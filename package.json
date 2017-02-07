@@ -1,0 +1,23 @@
+{
+  "name": "lit-jacket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pull": "git pull https://024f60b9866600221a94dd3b6c37ca2f2afa6386@github.com/tooldigital/pp-idefy-2017.git",
+    "ssh": "gcloud compute --project lit-jacket ssh --zone us-west1-a instance-1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gunderson/lit-jacket.git"
+  },
+  "author": "Josh Beckwith <josh@positlabs.com> (https://github.com/positlabs)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gunderson/lit-jacket/issues"
+  },
+  "homepage": "https://github.com/gunderson/lit-jacket#readme",
+  "engines": {
+    "node": "6.9.5"
+  }
+}
