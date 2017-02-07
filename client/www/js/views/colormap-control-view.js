@@ -1,9 +1,8 @@
 import View from '../../../lib/peak-front-end/js/views/View';
-
-export default class DisplayStateView extends View {
+export default class ColormapControlView extends View {
 	constructor( options ) {
 		super( View.merge( {
-			el: '#display-state',
+			template: 'colormap-control',
 			dataBindings: [],
 			bindFunctions: []
 		}, options ) );

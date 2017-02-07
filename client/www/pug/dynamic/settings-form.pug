@@ -1,0 +1,43 @@
+#settings-form
+	label.preset
+		.name Preset
+		select.preset
+			each val, index in locals.presets
+				option(value=index) #{index}
+	label.preset-name
+		.name Preset Name
+		input(name='preset-name', type='text')
+		button.save-preset(name='save-preset') Save Preset
+	label.enable-gestures
+		.name Enable Gestures
+		input(name='enable-gestures', type='checkbox', value='false', checked=locals.gesturesEnabled?true:undefined)
+	label.enable-mic
+		.name Enable mic
+		input(name='enable-mic', type='checkbox', value='false', checked=locals.micEnable?true:undefined)
+	label.drift-x
+		.name Drift X
+		input(name='drift-x', type='range', min='-2', max='2', step='0.001', value=locals.driftX)
+		input.val(type='number', min='-2', max='2', step='0.001', value=locals.driftX)
+	label.drift-y
+		.name Drift Y
+		input(name='drift-y', type='range', min='-2', max='2', step='0.001', value=locals.driftY)
+		input.val(type='number', min='-2', max='2', step='0.001', value=locals.driftY)
+	label.colormap-scale-x
+		.name Colormap Scale X
+		input(name='colormap-scale-x', type='range', min='0.001', max='4', step='0.001', value=locals.colormapScaleX)
+		input.val(type='number', min='0.001', max='4', step='0.001', value=locals.colormapScaleX)
+	label.colormap-scale-y
+		.name Colormap Scale Y
+		input(name='colormap-scale-y', type='range', min='0.001', max='4', step='0.001', value=locals.colormapScaleY)
+		input.val(type='number', min='0.001', max='4', step='0.001', value=locals.colormapScaleY)
+	label.colormap-wrap
+		.name Colormap wrap
+		select(name='colormap-wrap')
+			option(value='repeat') Repeat
+			option(value='mirror') Mirror
+	label.colormap-name
+		.name Colormap (already on device)
+		select(name='colormap-name')
+			option(value='default') Default
+		br
+		input(name='colormap-image', type='file')

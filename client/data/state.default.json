@@ -1,5 +1,21 @@
 {
 	"localAddress": "0.0.0.0",
 	"publicAddress": "0.0.0.0",
-	"token": ""
+	"token": "",
+	"playing": false,
+	"currentTime": 0,
+	"presetName": "",
+	"colormapName": "",
+	"colormapPositionX": 0,
+	"colormapPositionY": 0,
+	"colormapScaleX": 1,
+	"colormapScaleY": 1,
+	"micEnabled": false,
+	"gesturesEnabled": false,
+	"driftEnabled": true,
+	"driftX": 0,
+	"driftY": 0,
+	"colormapTileMode": "mirror",
+	"colors": [],
+	"presets": []
 }

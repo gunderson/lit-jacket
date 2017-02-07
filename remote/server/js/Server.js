@@ -2,55 +2,29 @@
 const path = require( 'path' );
 const log = require( '../lib/js/log' );
 const express = require( 'express' );
-const socketio = require( 'socket.io' );
-const _ = require( 'lodash' );
-
 const Controller = require( './Controller' );
-const AppModel = require( './models/App-Model' );
-
-const SetupSocket = require( './sockets' );
 
 // ---------------------------------------------------------
 // Middleware includes
 
 // var favicon = require( 'serve-favicon' );
-// const browserify = require( 'browserify-middleware' );
 const bodyParser = require( 'body-parser' );
 const logger = require( 'morgan' );
-const multer = require( 'multer' );
 const cacheResponseDirective = require( 'express-cache-response-directive' );
 const HeaderUtils = require( '../lib/js/HeaderUtils' );
 
-// ---------------------------------------------------------
-// Routes
-
-// ---------------------------------------------------------
-// Const info
-
-const colormapsPath = path.resolve( __dirname, '../../colormaps/' );
-
 class Server {
 	constructor( options ) {
+		var remotes = options.remotes;
 		var app = express();
-		var server = require( 'http' )
-			.Server( app );
-		var io = socketio( server );
-
-		var model = new AppModel( options.state, _.pick( options, [ 'presets', 'remotes', 'credentials' ] ) );
-		var controller = new Controller( model );
+		var controller = new Controller();
 
 		// ---------------------------------------------------------
 		// Middleware
 
-		var upload = multer( {
-			storage: multer.diskStorage( {
-				destination: ( req, file, cb ) => cb( null, colormapsPath ),
-				filename: ( req, file, cb ) => cb( null, `${Date.now()}.${path.extname(file.filename)}` )
-			} )
-		} );
 
 		app.use( logger( 'dev' ) );
-		// app.use( '/js', browserify( __dirname + '/../www/js' ) );
+
 		// parse application/json
 		app.use( bodyParser.json() );
 
@@ -68,16 +42,14 @@ class Server {
 		// ---------------------------------------------------------
 		// Sockets
 
-		SetupSocket( io, model );
 
 		// ---------------------------------------------------------
 		// Dynamic Routes
 
-		app.get( '/update-remote', require( './routes/update-remote' )( model ) );
-		app.get( '/presets', require( './routes/get-presets' ) );
-		app.get( '/colormaps', require( './routes/get-colormaps' ) );
-		app.get( '/state', require( './routes/get-state' )( model ) );
-		app.post( '/state', upload.single( 'colormap' ), require( './routes/post-state' )( model, controller ) );
+		app.get( '/device/:deviceId', require( './routes/device' ) );
+		app.get( '/ip', require( './routes/get-ip' ) );
+		app.post( '/ip', require( './routes/post-ip' ) );
+
 		// ---------------------------------------------------------
 		// Static Routes
 

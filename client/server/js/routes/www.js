@@ -1,8 +1,4 @@
 const path = require( 'path' );
-var Promise = require( 'bluebird' );
+const express = require( 'express' );
 
-const route = ( req, res ) => {
-	
-};
-
-module.exports = route;
+module.exports = express.static( path.resolve( '../../../www/dist/' ) );

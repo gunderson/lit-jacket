@@ -19,14 +19,18 @@ const COMMANDS = {
 // ------------------------------------------------------------
 
 // animation
-
+// TODO: move to model
 let pixels, w, h, pxdepth;
 let currentRow = 0;
-let floatX = 0;
-let floatY = 1;
+let positionX = 0;
+let positionY = 0;
+let driftX = 0;
+let driftY = 1;
+let colormapScaleX = 1;
+let colormapScaleY = 1;
 
 // animation player
-
+// TODO: move to model
 let elapsedTime = 0;
 let lastTickTime = 0;
 let tickCount = 0;
@@ -58,7 +62,7 @@ let pixelArrays = [
 // ------------------------------------------------------------
 
 class Controller extends EventEmitter {
-	constructor() {
+	constructor( model ) {
 		let setupPromise = Promise.all( [
 			setupPort(),
 			setColormap( path.join( imagePath, colormapFileName ) )
@@ -134,9 +138,11 @@ function stop() {
 function reset() {
 	stop();
 	currentRow = 0;
+	positionX = 0;
+	positionY = 0;
 	elapsedTime = 0;
-	floatX = Math.abs( floatX );
-	floatY = Math.abs( floatY );
+	driftX = Math.abs( driftX );
+	driftY = Math.abs( driftY );
 }
 
 function _tick() {
