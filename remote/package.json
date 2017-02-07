@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "find ./domains/* -maxdepth 2 -name package.json -execdir npm install \\;",
-    "rebuild": ""
+    "rebuild": "",
+    "pull": "git reset --hard && git pull -f",
+    "ssh": "gcloud compute --project lit-jacket ssh --zone us-west1-a instance-1"
   },
   "repository": {
     "type": "git",
