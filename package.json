@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pull": "git pull https://{token}@github.com/gunderson/lit-jacket.git",
+    "pull": "git pull https://a3f0f6faa6755187168941510bd5a800dabe8d9a@github.com/gunderson/lit-jacket.git",
     "ssh": "gcloud compute --project lit-jacket ssh --zone us-west1-a instance-1"
   },
   "repository": {
