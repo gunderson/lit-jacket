@@ -1,9 +1,7 @@
-const fs = require( 'fs-extra' );
-const path = require( 'path' );
 const Promise = require( 'bluebird' );
-const makeHash = require( '../../../../lib/js/make-hash' );
-
-fs = Promise.promisifyAll( fs );
+const fs = Promise.promisifyAll( require( 'fs-extra' ) );
+const path = require( 'path' );
+// const makeHash = require( '../../../../lib/js/make-hash' );
 
 const route = ( req, res ) => {
 	let deviceId = req.deviceId;

@@ -1,103 +1,21 @@
 {
 	"apps": [{
-		"name": "api",
-		"script": "./domains/api/src/main.js",
-		"merge_logs": true,
-		"max_restarts": 20,
-		"instances": 1,
-		"exec_mode": "fork",
-		"max_memory_restart": "200M",
-		"watch": true,
-		"env": {
-			"PORT": 3020,
-			"NODE_ENV": "dev",
-			"remotesPath": "../../../_remotes.json"
-		},
-		"env_production": {
-			"PORT": 3020,
-			"NODE_ENV": "production",
-			"remotesPath": "../../../remotes.json"
-		},
-		"cwd": "./domains/api/src"
-	}, {
-		"name": "cms",
-		"script": "./domains/cms/dist/main.js",
+		"name": "remote-server",
+		"script": "./server/index.js",
 		"merge_logs": true,
 		"max_restarts": 20,
 		"exec_mode": "fork",
 		"instances": 1,
 		"max_memory_restart": "200M",
 		"watch": true,
-		"env": {
-			"PORT": 3010,
-			"NODE_ENV": "dev",
-			"remotesPath": "../../../_remotes.json"
-		},
-		"env_production": {
-			"PORT": 3010,
-			"NODE_ENV": "production",
-			"remotesPath": "../../../remotes.json"
-		},
-		"cwd": "./domains/cms/dist"
-	}, {
-		"name": "status",
-		"script": "./domains/status/src/main.js",
-		"merge_logs": true,
-		"max_restarts": 20,
-		"exec_mode": "fork",
-		"instances": 1,
-		"max_memory_restart": "200M",
-		"watch": ["./domains/status/src"],
-		"env": {
-			"PORT": 3050,
-			"NODE_ENV": "dev",
-			"remotesPath": "../../../_remotes.json"
-		},
-		"env_production": {
-			"PORT": 3050,
-			"NODE_ENV": "production",
-			"remotesPath": "../../../remotes.json"
-		},
-		"cwd": "./domains/status/src"
-	}, {
-		"name": "renderer",
-		"script": "./domains/renderer/src/main.js",
-		"merge_logs": true,
-		"max_restarts": 20,
-		"exec_mode": "fork",
-		"instances": 1,
-		"max_memory_restart": "200M",
-		"watch": true,
-		"env": {
-			"PORT": 3030,
-			"NODE_ENV": "dev",
-			"remotesPath": "../../../_remotes.json"
-		},
-		"env_production": {
-			"PORT": 3030,
-			"NODE_ENV": "production",
-			"remotesPath": "../../../remotes.json"
-		},
-		"cwd": "./domains/renderer/src"
-	}, {
-		"name": "origin-www",
-		"script": "./domains/origin-www/dist/main.js",
-		"merge_logs": true,
-		"max_restarts": 20,
-		"exec_mode": "fork",
-		"instances": 1,
-		"max_memory_restart": "200M",
-		"watch": true,
-		"env": {
+		"env_development": {
 			"PORT": 3000,
-			"NODE_ENV": "dev",
-			"remotesPath": "../../../_remotes.json"
+			"NODE_ENV": "development",
 		},
 		"env_production": {
 			"PORT": 3000,
 			"NODE_ENV": "production",
-			"remotesPath": "../../../remotes.json"
 		},
-		"cwd": "./domains/origin-www/dist"
+		"cwd": "./"
 	}]
 }
