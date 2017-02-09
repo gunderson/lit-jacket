@@ -6,13 +6,16 @@ const path = require( 'path' );
 
 const route = ( req, res ) => {
 	let deviceId = req.params.deviceId;
-	fs.readFileAsync( path.resolve( '../../../../data/devices.json' ), 'utf-8' )
+	let devicePath = path.resolve( __dirname, '../../../data/devices.json' );
+	console.log( devicePath );
+	fs.readFileAsync( devicePath, 'utf-8' )
 		.then( ( str ) => {
 			let devices = JSON.parse( str );
 			let device = _.find( devices, {
 				deviceId: deviceId
 			} );
 			if ( device ) {
+				console.log( `http://${device.ip}:${device.port}` )
 				res.redirect( `http://${device.ip}:${device.port}` )
 			}
 		} )

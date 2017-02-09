@@ -7,8 +7,12 @@ const makeHash = require( '../../../lib/js/make-hash' );
 const route = ( req, res ) => {
 	let data = req.body;
 	let devices;
-	console.log( data.ip, req.ip );
-	if ( data.ip !== req.ip ) {
+	let ip = req.ip;
+	if ( ip.indexOf( ':' ) > -1 ) {
+		ip = _.last( ip.split( ':' ) )
+	}
+	console.log( data.ip, ip );
+	if ( data.ip !== ip ) {
 		res.send( {
 			status: 500,
 			message: 'posted IP must match request IP'
@@ -25,12 +29,12 @@ const route = ( req, res ) => {
 			let device = _.find( devices, {
 				deviceId: data.deviceId
 			} );
-			let expectedHash = makeHash( req.ip, device.deviceId, device.secret );
+			let expectedHash = makeHash( ip, device.deviceId, device.secret );
 			console.log( 'checking hash' )
 			if ( expectedHash === req.body.hash ) {
 				console.log( 'hash passed' )
 				// save device details
-				device.ip = req.ip;
+				device.ip = ip;
 				device.port = data.port;
 
 				// save device data
