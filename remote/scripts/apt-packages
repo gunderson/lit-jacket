@@ -2,6 +2,7 @@ python \
 gcc \
 g++ \
 make \
+build-essential \
 screen \
 openssh-sftp-server \
 git \
@@ -10,4 +11,4 @@ block-mount \
 kmod-fs-ext4 \
 kmod-usb-storage-extras \
 nodejs \
-npm
+npm \

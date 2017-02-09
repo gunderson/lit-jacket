@@ -38,14 +38,17 @@ const route = ( req, res ) => {
 				device.port = data.port;
 
 				// save device data
-				fs.writeFile( deviceInfoPath, JSON.stringify( devices ), {
-					encoding: 'utf-8'
-				} );
+				return fs.writeFileAsync( deviceInfoPath, JSON.stringify( devices ), {
+						encoding: 'utf-8'
+					} )
+					.then( () => {
+						res.send( {
+							status: 200,
+							message: 'successfully updated IP'
+						} );
 
-				res.send( {
-					status: 200,
-					message: 'successfully updated IP'
-				} );
+					} )
+
 
 			} else {
 				console.log( 'hash failed' )

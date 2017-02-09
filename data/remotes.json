@@ -7,6 +7,6 @@
 	"remote": {
 		"name": "home",
 		"port": 8081,
-		"address": "localhost"
+		"address": "104.198.103.119"
 	}
 }
