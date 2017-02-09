@@ -23,6 +23,8 @@ const COMMANDS = {
 // TODO: move to model
 let pixels, w, h, pxdepth;
 let currentRow = 0;
+let directionX = 1;
+let directionY = 1;
 // let positionX = 0;
 // let positionY = 0;
 // let driftX = 0;
@@ -50,12 +52,12 @@ let imageData;
 // display
 
 let pixelArrays = [
-	new Array( 5 ), // wristLeft
-	new Array( 5 ), // sleeveLeft
-	new Array( 5 ), // collarLeft
-	new Array( 5 ), // collarRight
-	new Array( 5 ), // sleeveRight
-	new Array( 5 ), // wristRight
+	new Array( 10 ), // wristLeft
+	new Array( 20 ), // sleeveLeft
+	new Array( 30 ), // collarLeft
+	new Array( 30 ), // collarRight
+	new Array( 20 ), // sleeveRight
+	new Array( 10 ), // wristRight
 ];
 
 // ------------------------------------------------------------
@@ -67,9 +69,18 @@ let model;
 class Controller {
 	constructor( dataModel ) {
 		model = dataModel;
+
+		model.on( 'play', this.play );
+		model.on( 'pause', this.pause );
+		model.on( 'reset', this.reset );
+		model.on( 'change:colormapName', ( event, val ) => {
+			setColormap( path.join( imagePath, model.colormaps[ model.colormapName ] ) )
+		} );
+
+
 		let setupPromise = Promise.all( [
 			setupPort(),
-			setColormap( path.join( imagePath, colormapFileName ) )
+			setColormap( path.join( imagePath, model.colormaps[ model.colormapName ] ) )
 		] );
 
 		port.open();
@@ -79,7 +90,7 @@ class Controller {
 	}
 
 	setColormap( file ) {
-		setColormap.apply( this, arguments );
+		return setColormap.apply( this, arguments );
 	}
 
 	get pixels() {
@@ -90,8 +101,8 @@ class Controller {
 		play();
 	}
 
-	stop() {
-		stop();
+	pause() {
+		pause();
 	}
 
 	reset() {
@@ -114,6 +125,7 @@ function setupPort() {
 }
 
 function setColormap() {
+	console.log( "setColormap", arguments );
 	return getPixels.apply( this, arguments )
 		.then( ( px ) => {
 			colormapData = px;
@@ -135,12 +147,12 @@ function play() {
 	_tick();
 }
 
-function stop() {
+function pause() {
 	isPlaying = false;
 }
 
 function reset() {
-	stop();
+	pause();
 	currentRow = 0;
 	model.positionY = 0;
 	model.positionX = 0;
@@ -155,7 +167,7 @@ function _tick() {
 	model.elapsedTime += now - lastTickTime;
 	lastTickTime = now;
 	tickCount = Math.round( model.elapsedTime / millisPerTick );
-	let millisToNextTick = ( tickCount + 1 ) * millisPerTick - model.elapsedTime
+	let millisToNextTick = ( ( tickCount + 1 ) * millisPerTick ) - model.elapsedTime;
 	if ( update() && draw() ) {
 		tickTimeout = setTimeout( _tick, millisToNextTick );
 	}
@@ -167,12 +179,11 @@ function update() {
 	}
 	let imageRow = Array.prototype.slice.call( pixels, w * pxdepth * currentRow, w * pxdepth * ( currentRow + 1 ) );
 	pixelArrays = distributePixelData( imageRow, pixelArrays );
-	currentRow += model.driftY;
+	currentRow += model.driftY * directionY;
 	model.positionX += model.driftX;
 	model.positionY += model.driftY;
-
 	// bounce floatation
-	if ( currentRow >= h - 1 || currentRow <= 0 ) model.driftY *= -1;
+	if ( currentRow >= h - 2 || currentRow <= 0 ) directionY *= -1;
 	return true;
 };
 
@@ -206,6 +217,7 @@ function distributePixelData( imageRow, pixelArrays ) {
 // ------------------------------------------------------------
 
 function sendCommand( cmd, dataBuffer = [] ) {
+	if ( !port.isOpen() ) return;
 	let cmdBuffer = Buffer.alloc( dataBuffer.length + 1 );
 	cmdBuffer[ 0 ] = cmd;
 	// unshift the command into the array

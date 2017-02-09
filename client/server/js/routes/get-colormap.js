@@ -1,4 +1,8 @@
 const path = require( 'path' );
+const fs = require( 'fs-extra' );
 const express = require( 'express' );
-
-module.exports = express.static( path.resolve( '../../colormaps/' ) );
+const colormapPath = path.resolve( __dirname, '../../' )
+module.exports = express.static( colormapPath, {
+	fallthrough: true,
+	index: false
+} );

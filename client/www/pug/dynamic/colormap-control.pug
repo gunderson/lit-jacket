@@ -1,7 +1,8 @@
 #colormap-control
-	canvas.colormap
+	//- canvas.colormap-state
+	img.colormap
 	- var n = -1;
 	table.current-colors
 		tr
-		while ++n < locals.numLeds
+		while ++n < locals.colors.length/3
 			td.cell

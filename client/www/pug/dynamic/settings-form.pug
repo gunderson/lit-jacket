@@ -1,7 +1,10 @@
 #settings-form
+	button.play Play
+	button.pause Pause
+	button.reset Reset
 	label.preset
 		.name Preset
-		select.preset
+		select.presets
 			each val, index in locals.presets
 				option(value=index) #{index}
 	label.preset-name
@@ -36,8 +39,11 @@
 			option(value='repeat') Repeat
 			option(value='mirror') Mirror
 	label.colormap-name
-		.name Colormap (already on device)
+		.name Colormaps (already on device)
 		select(name='colormap-name')
 			option(value='default') Default
-		br
+	label.colormap-upload
+		.name Upload a new Colormap
+		input(name='colormap-name')
 		input(name='colormap-image', type='file')
+		button.upload-colormap Upload Colormap

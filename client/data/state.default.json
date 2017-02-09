@@ -5,7 +5,7 @@
 	"playing": false,
 	"currentTime": 0,
 	"presetName": "",
-	"colormapName": "",
+	"colormapName": "colormap.png",
 	"colormapPositionX": 0,
 	"colormapPositionY": 0,
 	"colormapScaleX": 1,
@@ -14,8 +14,12 @@
 	"gesturesEnabled": false,
 	"driftEnabled": true,
 	"driftX": 0,
-	"driftY": 0,
+	"driftY": 1,
+	"elapsedTime": 0,
 	"colormapTileMode": "mirror",
 	"colors": [],
-	"presets": {}
+	"presets": {},
+	"colormaps": {
+		"default": "colormap.png"
+	}
 }

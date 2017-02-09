@@ -24,6 +24,11 @@ export default class AppModel extends SocketModel {
 				bindFunctions: [
 					'onResize',
 					'onSocketState',
+					'playPlayback',
+					'pausePlayback',
+					'resetPlayback',
+					'uploadColormap',
+					'updateRemote',
 				]
 			}, options )
 		);
@@ -31,6 +36,7 @@ export default class AppModel extends SocketModel {
 
 	onConnect() {
 		super.onConnect();
+		console.log( '---- ON CONNECT' )
 		this.delegateEvents();
 	}
 
@@ -41,5 +47,29 @@ export default class AppModel extends SocketModel {
 
 	onResize() {
 		this.trigger( 'resize' );
+	}
+
+	playPlayback() {
+		this.socket.emit( 'playback:play' );
+	}
+
+	pausePlayback() {
+		this.socket.emit( 'playback:pause' );
+	}
+
+	resetPlayback() {
+		this.socket.emit( 'playback:reset' );
+	}
+
+	uploadColormap( data ) {
+		this.socket.emit( 'create:colormap', data );
+	}
+	updateRemote() {
+		$.post( '/update-remote' );
+	}
+	savePreset( presetName ) {
+		this.socket.emit( 'create:preset', {
+			presetName
+		} );
 	}
 }

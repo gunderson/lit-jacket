@@ -36,12 +36,7 @@ class Server {
 			.Server( app );
 		var io = socketio( server );
 
-		var model = new AppModel(
-			_.extend( {},
-				options.state, {
-					presets: options.presets
-				} ),
-			_.pick( options, [ 'remotes', 'credentials' ] ) );
+		var model = new AppModel( {}, _.pick( options, [ 'remotes', 'credentials' ] ) );
 		var controller = new Controller( model );
 
 		// ---------------------------------------------------------
@@ -83,8 +78,10 @@ class Server {
 		// Dynamic Routes
 
 		app.get( '/update-remote', require( './routes/update-remote' )( model ) );
-		app.get( '/presets', require( './routes/get-presets' ) );
-		app.get( '/colormaps', require( './routes/get-colormaps' ) );
+		app.get( '/preset/:presetName', require( './routes/get-preset' )( model ) );
+		app.get( '/presets', require( './routes/get-presets' )( model ) );
+		app.get( '/colormaps/*', require( './routes/get-colormap' ) ); // static
+		app.get( '/colormaps', require( './routes/get-colormaps' )( model ) );
 		app.get( '/state', require( './routes/get-state' )( model ) );
 		app.post( '/state', upload.single( 'colormap' ), require( './routes/post-state' )( model, controller ) );
 		// ---------------------------------------------------------

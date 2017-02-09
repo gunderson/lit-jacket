@@ -11,13 +11,9 @@ compileRecordFiles( '../data/presets' )
 		// get data
 		const credentials = require( path.resolve( __dirname, '../data/credentials.json' ) );
 		const remotes = require( path.resolve( __dirname, '../../data/remotes.json' ) );
-		const state = require( path.resolve( __dirname, '../data/state.json' ) );
-		const presets = require( path.resolve( __dirname, '../data/presets.json' ) );
 		// start server
 		const server = new Server( {
 			credentials,
-			presets,
-			state,
 			remotes
 		} );
 	} )
