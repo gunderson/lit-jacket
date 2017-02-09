@@ -4,7 +4,7 @@
 	button.reset Reset
 	label.preset
 		.name Preset
-		select.presets
+		select(name='presets')
 			each val, index in locals.presets
 				option(value=index) #{index}
 	label.preset-name
@@ -19,12 +19,12 @@
 		input(name='enable-mic', type='checkbox', value='false', checked=locals.micEnable?true:undefined)
 	label.drift-x
 		.name Drift X
-		input(name='drift-x', type='range', min='-2', max='2', step='0.001', value=locals.driftX)
-		input.val(type='number', min='-2', max='2', step='0.001', value=locals.driftX)
+		input(name='drift-x', type='range', min='-0.01', max='-0.01', step='0.0001', value=locals.driftX)
+		input.val(type='number', min='-0.01', max='0.01', step='0.0001', value=locals.driftX)
 	label.drift-y
 		.name Drift Y
-		input(name='drift-y', type='range', min='-2', max='2', step='0.001', value=locals.driftY)
-		input.val(type='number', min='-2', max='2', step='0.001', value=locals.driftY)
+		input(name='drift-y', type='range', min='-0.01', max='0.01', step='0.0001', value=locals.driftY)
+		input.val(type='number', min='-0.01', max='0.01', step='0.0001', value=locals.driftY)
 	label.colormap-scale-x
 		.name Colormap Scale X
 		input(name='colormap-scale-x', type='range', min='0.001', max='4', step='0.001', value=locals.colormapScaleX)
@@ -34,9 +34,9 @@
 		input(name='colormap-scale-y', type='range', min='0.001', max='4', step='0.001', value=locals.colormapScaleY)
 		input.val(type='number', min='0.001', max='4', step='0.001', value=locals.colormapScaleY)
 	label.colormap-wrap
-		.name Colormap wrap
-		select(name='colormap-wrap')
-			option(value='repeat') Repeat
+		.name Colormap Tile Mode
+		select(name='colormap-tile-mode')
+			option(value='tile') Tile
 			option(value='mirror') Mirror
 	label.colormap-name
 		.name Colormaps (already on device)

@@ -177,13 +177,24 @@ function update() {
 	if ( !colormapData ) {
 		return false;
 	}
+	switch ( model.colormapTileMode ) {
+		case 'tile':
+			model.positionX = ( model.positionX + model.driftX ) % 1;
+			model.positionY = ( model.positionY + model.driftY ) % 1;
+			currentRow = Math.floor( model.positionY * 256 );
+			break;
+		case 'mirror':
+			model.positionX = ( ( model.positionX + model.driftX ) % 1 );
+			model.positionY = ( ( model.positionY + model.driftY ) % 1 );
+
+
+			currentRow = Math.abs( Math.floor( model.positionY * 256 ) );
+			break;
+	}
+
+
 	let imageRow = Array.prototype.slice.call( pixels, w * pxdepth * currentRow, w * pxdepth * ( currentRow + 1 ) );
 	pixelArrays = distributePixelData( imageRow, pixelArrays );
-	currentRow += model.driftY * directionY;
-	model.positionX += model.driftX;
-	model.positionY += model.driftY;
-	// bounce floatation
-	if ( currentRow >= h - 2 || currentRow <= 0 ) directionY *= -1;
 	return true;
 };
 

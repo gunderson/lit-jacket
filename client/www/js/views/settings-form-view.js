@@ -51,8 +51,12 @@ export default class ControlFormView extends View {
 				setElementData: 'toggleChecked',
 				getElementData: 'checkCheckbox'
 			}, {
-				element: 'select.presets',
+				element: 'select[name=presets]',
 				attributeName: 'presetName',
+				elementChangeEventName: 'change'
+			}, {
+				element: 'select[name=colormap-tile-mode]',
+				attributeName: 'colormapTileMode',
 				elementChangeEventName: 'change'
 			}, {
 				element: 'select[name=colormap-name]',
@@ -131,7 +135,7 @@ export default class ControlFormView extends View {
 		return $el.is( ':checked' );
 	}
 	onChangePresets( event, val ) {
-		let $select = this.$( 'select.presets' );
+		let $select = this.$( 'select[name=presets]' );
 		let $els = _.map( val, ( data, name ) => $( `<option value='${name}'>${name}</option>` ) );
 		$select.empty()
 			.append( $els );

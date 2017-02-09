@@ -32,6 +32,7 @@ module.exports = function socket( io, model ) {
 
 			model.on( `change:${name}`, modelListeners[ `change:${name}` ] );
 		} )
+		model.on( 'change:colormapTileMode', ( event ) => console.log( event.name, event.value ) );
 
 		// for wholesale state changes
 		modelListeners[ 'change:state' ] = ( event ) => {
