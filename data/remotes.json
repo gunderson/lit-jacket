@@ -1,12 +1,12 @@
 {
 	"device": {
-		"port": 8080,
 		"name": "aura",
+		"port": 8080,
 		"address": "localhost"
 	},
 	"remote": {
-		"port": 8080,
-		"name": "aura",
-		"address": "aura-jacket.theorigin.net"
+		"name": "home",
+		"port": 8081,
+		"address": "localhost"
 	}
 }

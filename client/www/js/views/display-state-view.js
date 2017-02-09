@@ -14,8 +14,8 @@ export default class DisplayStateView extends View {
 				attributeName: 'publicAddress',
 				mode: 'get'
 			}, {
-				element: '.device-name>input',
-				attributeName: 'id',
+				element: '.device-id .val',
+				attributeName: 'deviceId',
 				mode: 'get'
 			} ],
 			bindFunctions: [

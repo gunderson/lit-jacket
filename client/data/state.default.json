@@ -1,7 +1,4 @@
 {
-	"localAddress": "0.0.0.0",
-	"publicAddress": "0.0.0.0",
-	"token": "",
 	"playing": false,
 	"currentTime": 0,
 	"presetName": "",

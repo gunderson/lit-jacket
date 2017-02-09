@@ -18,25 +18,35 @@ module.exports = function socket( io, model ) {
 		socket.on( 'playback:reset', () => model.trigger( 'reset' ) );
 
 		// for all attributes
+		let modelListeners = {};
 		_.each( model.attributes, ( val, name ) => {
 			socket.on( `change:${name}`, ( event ) => {
 				model.incoming = true;
 				model[ event.name ] = event.value;
 				model.incoming = false;
 			} );
-			model.on( `change:${name}`, ( event ) => {
+			modelListeners[ `change:${name}` ] = ( event ) => {
 				if ( model.incoming ) return;
 				socket.emit( `change:${name}`, _.pick( event, [ 'name', 'value' ] ) );
-			} );
+			}
+
+			model.on( `change:${name}`, modelListeners[ `change:${name}` ] );
 		} )
 
+		// for wholesale state changes
+		modelListeners[ 'change:state' ] = ( event ) => {
+			socket.emit( 'state', _.extend( model.toJSON(), _.pick( model.credentials, [ 'deviceId', 'localAddress', 'port' ] ) ) );
+		}
+		model.on( 'change:state', modelListeners[ 'change:state' ] );
+
+
 		socket.on( 'disconnect', () => {
-			_.each( model.attributes, ( val, name ) => {
+			_.each( modelListeners, ( fn, name ) => {
 				// FIXME: this kills all model listners
-				// model.off( `change:${name}` );
+				model.off( `change:${name}`, fn );
 			} )
 		} );
-
-		socket.emit( 'state', model.toJSON() );
+		model.trigger( 'change:state' );
+		// socket.emit( 'state', _.extend( model.toJSON(), _.pick( model.credentials, [ 'deviceId', 'localAddress', 'port' ] ) ) );
 	} )
 }

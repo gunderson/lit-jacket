@@ -20,7 +20,6 @@ export default class ColormapControlView extends View {
 
 	onChangeColormapName( event, val ) {
 		let colormapFilename = this.model.colormaps[ val ];
-		console.log( '-------- colormapFilename', colormapFilename );
 		if ( !colormapFilename ) {
 			return _.defer( () => this.onChangeColormapName.call( this, event, val ) );
 		}
@@ -38,9 +37,6 @@ export default class ColormapControlView extends View {
 			console.log( 'rendering' )
 			this.render();
 		}
-
-		console.log( colors.length );
-
 		this.$( 'td' )
 			.each( ( i, el ) => {
 				$( el )

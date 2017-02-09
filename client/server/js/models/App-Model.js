@@ -55,7 +55,7 @@ class AppModel extends Model {
 	}
 
 	savePreset( data ) {
-		let presetData = _.omit( this.toJSON(), [ 'colors', 'colormaps', 'presets', 'positionX', 'positionY', 'localAddress', 'remoteAddress', 'id', 'token' ] )
+		let presetData = _.omit( this.toJSON(), [ 'colors', 'colormaps', 'presets', 'positionX', 'positionY', 'localAddress' ] )
 		// presetData.presetName = data.presetName;
 		// create preset file
 		let filename = path.join( presetPath, `${data.presetName}.json` );

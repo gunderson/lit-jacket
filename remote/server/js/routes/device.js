@@ -1,15 +1,19 @@
+const _ = require( 'lodash' );
 const Promise = require( 'bluebird' );
 const fs = Promise.promisifyAll( require( 'fs-extra' ) );
 const path = require( 'path' );
 // const makeHash = require( '../../../../lib/js/make-hash' );
 
 const route = ( req, res ) => {
-	let deviceId = req.deviceId;
-	fs.readFile( path.resolve( '../../../../data/devices' ), 'utf-8' )
+	let deviceId = req.params.deviceId;
+	fs.readFileAsync( path.resolve( '../../../../data/devices.json' ), 'utf-8' )
 		.then( ( str ) => {
 			let devices = JSON.parse( str );
-			if ( devices[ deviceId ] ) {
-				res.redirect( path.join( 'http://', devices[ deviceId ].ip ) )
+			let device = _.find( devices, {
+				deviceId: deviceId
+			} );
+			if ( device ) {
+				res.redirect( `http://${device.ip}:${device.port}` )
 			}
 		} )
 		.catch( ( err ) => {

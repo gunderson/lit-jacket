@@ -65,7 +65,7 @@ export default class AppModel extends SocketModel {
 		this.socket.emit( 'create:colormap', data );
 	}
 	updateRemote() {
-		$.post( '/update-remote' );
+		$.get( '/update-remote' );
 	}
 	savePreset( presetName ) {
 		this.socket.emit( 'create:preset', {

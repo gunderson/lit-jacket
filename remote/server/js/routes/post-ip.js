@@ -1,3 +1,4 @@
+const _ = require( 'lodash' );
 const path = require( 'path' );
 const Promise = require( 'bluebird' );
 const fs = Promise.promisifyAll( require( 'fs-extra' ) );
@@ -6,6 +7,7 @@ const makeHash = require( '../../../lib/js/make-hash' );
 const route = ( req, res ) => {
 	let data = req.body;
 	let devices;
+	console.log( data.ip, req.ip );
 	if ( data.ip !== req.ip ) {
 		res.send( {
 			status: 500,
@@ -14,21 +16,35 @@ const route = ( req, res ) => {
 		return;
 	}
 	// get device-secret
-	fs.readFile( path.resolve( '../../../../data/devices' ), 'utf-8' )
+	let deviceInfoPath = path.resolve( __dirname, '../../../data/devices.json' )
+	console.log( deviceInfoPath )
+	fs.readFileAsync( deviceInfoPath, 'utf-8' )
 		.then( ( str ) => {
 			devices = JSON.parse( str );
 			// check hash
-			let expectedHash = makeHash( req.ip, data.name, devices[ data.name ].secret );
+			let device = _.find( devices, {
+				deviceId: data.deviceId
+			} );
+			let expectedHash = makeHash( req.ip, device.deviceId, device.secret );
+			console.log( 'checking hash' )
 			if ( expectedHash === req.body.hash ) {
+				console.log( 'hash passed' )
 				// save device details
-				devices[ data.name ].ip = req.ip;
-				devices[ data.name ].port = data.port;
+				device.ip = req.ip;
+				device.port = data.port;
+
+				// save device data
+				fs.writeFile( deviceInfoPath, JSON.stringify( devices ), {
+					encoding: 'utf-8'
+				} );
+
 				res.send( {
 					status: 200,
 					message: 'successfully updated IP'
 				} );
 
 			} else {
+				console.log( 'hash failed' )
 				res.send( {
 					status: 401,
 					message: 'Bad data',
