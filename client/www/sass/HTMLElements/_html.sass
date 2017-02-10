@@ -1,0 +1,18 @@
+html
+	overflow: hidden
+	width: 100%
+	height: 100%
+	margin: 0
+	padding: 0
+	font-family: $body-font-family
+	background-color: $page-bg-color
+	font-size: 1px
+	-webkit-font-smoothing: antialiased
+	&.fullscreen
+		@include respond-to(laptops)
+			font-size: 1.3px
+		@include respond-to(tvs)
+			font-size: 2px
+	::selection
+		background: $red
+		color: #000

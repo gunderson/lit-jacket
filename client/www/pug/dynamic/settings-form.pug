@@ -1,7 +1,8 @@
 #settings-form
-	button.play Play
-	button.pause Pause
-	button.reset Reset
+	label
+		button.button-0.play Play
+		button.button-0.pause Pause
+		button.button-0.reset Reset
 	label.preset
 		.name Preset
 		select(name='presets')
@@ -10,7 +11,7 @@
 	label.preset-name
 		.name Preset Name
 		input(name='preset-name', type='text')
-		button.save-preset(name='save-preset') Save Preset
+		button.button-0.save-preset(name='save-preset') Save Preset
 	label.enable-gestures
 		.name Enable Gestures
 		input(name='enable-gestures', type='checkbox', value='false', checked=locals.gesturesEnabled?true:undefined)
@@ -19,7 +20,7 @@
 		input(name='enable-mic', type='checkbox', value='false', checked=locals.micEnable?true:undefined)
 	label.drift-x
 		.name Drift X
-		input(name='drift-x', type='range', min='-0.01', max='-0.01', step='0.0001', value=locals.driftX)
+		input(name='drift-x', type='range', min='-0.01', max='0.01', step='0.0001', value=locals.driftX)
 		input.val(type='number', min='-0.01', max='0.01', step='0.0001', value=locals.driftX)
 	label.drift-y
 		.name Drift Y
@@ -46,4 +47,4 @@
 		.name Upload a new Colormap
 		input(name='colormap-name')
 		input(name='colormap-image', type='file')
-		button.upload-colormap Upload Colormap
+		button.button-0.upload-colormap Upload Colormap

@@ -1,0 +1,109 @@
+.signature-list
+	position: relative
+	font-size: 14rem
+	width: 90%
+	min-width: 800rem
+	/*display: -ms-flexbox*/
+	/*display: -webkit-flex*/
+	/*display: flex*/
+	/*-webkit-flex-direction: column*/
+	/*-ms-flex-direction: column*/
+	/*flex-direction: column*/
+	/*-webkit-flex-wrap: nowrap*/
+	/*-ms-flex-wrap: nowrap*/
+	/*flex-wrap: nowrap*/
+	/*-webkit-justify-content: flex-start*/
+	/*-ms-flex-pack: start*/
+	/*justify-content: flex-start*/
+	/*-webkit-align-content: stretch*/
+	/*-ms-flex-line-pack: stretch*/
+	/*align-content: stretch*/
+	/*-webkit-align-items: flex-start*/
+	/*-ms-flex-align: start*/
+	/*align-items: flex-start*/
+	margin: auto
+	text-align: center
+
+	height: 80%
+
+	thead
+		color: #fff
+		background: #333
+		td
+			height: 30rem
+	.id
+		text-align: left
+		padding: 20rem 10rem 10rem
+	.moderation_status
+		width: 15%
+		min-width: 150rem
+
+	.current_image, .submitted_image
+		width: 15%
+		max-width: 500rem
+		img
+			width: 150rem
+
+	.time_created
+		width: 15%
+
+	.time_moderated
+		width: 15%
+
+	.moderator
+		width: 15%
+
+	.tags
+		width: 15%
+		min-width: 100rem
+
+	.header
+		border-bottom: 1px solid rgba(255,255,255,1)
+.signature-item
+	text-align: center
+	position: relative
+	margin: 20rem 0
+	/*-webkit-order: 0*/
+	/*-ms-flex-order: 0*/
+	/*order: 0*/
+	/*-webkit-flex: 0 0 auto*/
+	/*-ms-flex: 0 0 auto*/
+	/*flex: 0 0 auto*/
+	/*-webkit-align-self: stretch*/
+	/*-ms-flex-item-align: stretch*/
+	/*align-self: stretch*/
+
+
+	tr
+		&:first-of-type
+
+			td
+				padding: 5rem
+
+	&:nth-of-type(2n)
+		background-color: #191919
+		box-shadow: inset 5rem 5rem 30rem rgba(0, 0, 0, 0.6)
+		padding: 15rem 0
+
+	img
+		max-width: 600rem
+
+	td
+		padding: 15rem
+
+	label
+		position: relative
+		text-align: right
+		margin: 5rem
+		display: block
+		vertical-align: bottom
+		clear: both
+
+	input
+		float: right
+		vertical-align: middle
+		margin-left: 10rem
+
+	textarea.tags
+		width: 100%
+		height: 100%

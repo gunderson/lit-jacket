@@ -1,0 +1,21 @@
+input[type=number]
+	margin: 0 $page-margin
+	font-size: 10rem
+	padding: 3rem
+	vertical-align: bottom
+	border: none
+	background-color: rgba(0,0,0,0.85)
+	color: $paragraph-color
+	text-align: right
+	width: 55rem
+
+	&::-webkit-inner-spin-button, &::-webkit-outer-spin-button
+		-webkit-appearance: none
+		margin: 0
+
+	/* Remove controls from Firefox */
+	-moz-appearance: textfield
+
+	/* Re-applies the controls on :hover and :focus */
+	&:hover, &:focus
+		-moz-appearance: number-input

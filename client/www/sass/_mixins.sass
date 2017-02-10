@@ -1,0 +1,60 @@
+$break-small-phones: 480px
+$break-tablets: 960px
+$break-laptops: 1200px
+$break-tvs: 1900px
+
+// respond-to() usage
+// .profile-pic {
+//   float: left;
+//   width: 250px;
+//   @include respond-to(handhelds) { width: 100% ;}
+//   @include respond-to(medium-screens) { width: 125px; }
+//   @include respond-to(wide-screens) { float: none; }
+// }
+
+@mixin respond-to($media)
+	@if $media == small-phones
+		@media only screen and (max-width: $break-small-phones)
+			@content
+
+	@else if $media == phones
+		@media only screen and (min-width: $break-small-phones + 1) and (max-width: break-tablets)
+			@content
+
+	@else if $media == tablets
+		@media only screen and (min-width: $break-tablets + 1) and (max-width: break-laptops)
+			@content
+
+	@else if $media == laptops
+		@media only screen and (min-width: $break-laptops) and (max-width: $break-tvs - 1)
+			@content
+
+	@else if $media == tvs
+		@media only screen and (min-width: $break-tvs)
+			@content
+
+@mixin transition($args...)
+	-webkit-transition: $args
+	-moz-transition: $args
+	-ms-transition: $args
+	-o-transition: $args
+	transition: $args
+
+@mixin transform($args...)
+	-webkit-transform: $args
+	-moz-transform: $args
+	-ms-transform: $args
+	-o-transform: $args
+	transform: $args
+
+@mixin transform-origin($args...)
+	-webkit-transform-origin: $args
+	-moz-transform-origin: $args
+	-ms-transform-origin: $args
+	-o-transform-origin: $args
+	transform-origin: $args
+
+
+@mixin box-shadow($depth, $color: rgba(0,0,0,.3))
+	$width: $depth * 4 * 7rem
+	box-shadow: 0rem 0rem $width $color

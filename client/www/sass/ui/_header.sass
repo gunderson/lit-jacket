@@ -1,0 +1,70 @@
+header
+	display: -ms-flexbox
+	display: -webkit-flex
+	display: flex
+	-webkit-flex-direction: row
+	-ms-flex-direction: row
+	flex-direction: row
+	-webkit-flex-wrap: nowrap
+	-ms-flex-wrap: nowrap
+	flex-wrap: nowrap
+	-webkit-justify-content: stretch
+	-ms-flex-pack: stretch
+	justify-content: stretch
+	-webkit-align-content: center
+	-ms-flex-line-pack: center
+	align-content: center
+	-webkit-align-items: center
+	-ms-flex-align: center
+	align-items: center
+	overflow-x: hidden
+	transition: transform 0.5s
+	position: absolute
+	top: 0
+	background-color: $red
+	color: #fff
+	box-shadow: 0 0 20rem rgba(0,0,0,0.5)
+	text-align: center
+	width: 100%
+	z-index: 10
+
+	/*.home-page &
+		transform: translate3d(0,-$header-height,0)*/
+	h1
+		color: #fff
+		display: inline-block
+		font-size: 14rem
+		text-transform: uppercase
+		padding: 10rem 20rem
+		margin: 0
+		text-align: left
+		width: 200rem
+
+	a
+		font-size: 12rem
+		text-transform: uppercase
+		position: relative
+		overflow: hidden
+		transition: all 0.25s
+		display: inline-block
+		text-decoration: none
+		padding: 10rem 20rem
+		margin: $page-margin / 2 auto
+		text-align: center
+		&::after
+			content: ''
+			position: absolute
+			top: 0
+			left: -100%
+			width: 100%
+			height: 100%
+			z-index: -1
+			transition: transform 0.3s ease-out
+			/*background-color: #000*/
+
+		&:hover,
+			/*color: #fff*/
+			/*background: #000*/
+
+			&::after
+				transform: translate3d(100%,0,0)

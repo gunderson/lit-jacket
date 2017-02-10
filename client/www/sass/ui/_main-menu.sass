@@ -1,0 +1,97 @@
+$menu-link-color: #ccc
+$menu-link-hover-color: #fff
+$menu-handle-size: 35rem
+$menu-margin: 10rem
+
+#main-menu
+	font-family: $header-font-family
+	color: #ccc
+	z-index: 5
+	@include transition(transform $menu-transition-time ease-out, box-shadow $menu-transition-time ease-out)
+	@include box-shadow(0)
+
+	.menu-open &
+		transform: translate3d(-$menu-width,0,0)
+		@include box-shadow(5, rgba(255,255,255,0.1))
+		.handle
+			@include box-shadow(.25)
+			/*transform: translate3d($menu-margin, -$menu-margin, 0)*/
+			background-color: rgba(32,32,32,0.5)
+			.open-icon
+				display: none
+			.close-icon
+				display: block
+	position: absolute
+	top: 0
+	right: -$menu-width
+	height: 100% //calc(100% - #{$header-height + $footer-height})
+	margin: 0//$header-height 0 $footer-height
+	width: $menu-width
+	background-color: #111
+	a
+		@include transition(box-shadow $menu-transition-time ease-out, background-color 0.05s, color 0.05s)
+
+		font-size: 18rem
+		text-transform: uppercase
+		text-decoration: none
+		display: block
+		height: $menu-handle-size
+		line-height: 18rem
+		margin: $menu-margin
+		padding: 10rem
+		color: $menu-link-color
+		&:hover
+			color: $menu-link-hover-color
+			background-color: #333
+		&.active
+			background-color: #222
+			color: #ddd
+	.handle
+		@include transition(transform $menu-transition-time ease-out, box-shadow $menu-transition-time ease-out, background-color 0.025s, color 0.025s)
+		@include box-shadow(.25)
+		display: block
+		position: absolute
+		top: $menu-margin
+		left: -$menu-handle-size - $menu-margin
+		width: $menu-handle-size
+		height: $menu-handle-size
+		background-color: rgba(0,0,0,0.5)
+		color: #ccc
+		cursor: pointer
+		border: none
+		.icon, icon:before
+			height: 100%
+			line-height: 40rem
+		&:hover
+			background-color: rgba(0,0,0,0.9)
+			color: #fff
+		.contents
+			font-size: 20rem
+			position: absolute
+			top: 0
+			left: 0
+			width: 100%
+			height: 100%
+			line-height: 20rem
+		.close-icon
+			display: none
+
+
+	.filter-settings
+		h3
+			font-size: 14rem
+			font-weight: normal
+			margin: 10rem 0 5rem
+		text-align: left
+		font-size: 10rem
+		width: 100%
+		.setting
+			padding: 10rem
+			margin: 10rem
+		label
+			display: block
+			margin: 5rem
+	.add-user
+		display: none
+		.permission-100 &
+			display: block
