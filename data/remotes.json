@@ -2,7 +2,7 @@
 	"device": {
 		"name": "aura",
 		"port": 8080,
-		"address": "localhost"
+		"address": "litjacket.local"
 	},
 	"remote": {
 		"name": "home",

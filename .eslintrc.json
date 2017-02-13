@@ -5,6 +5,7 @@
 			"experimentalObjectRestSpread": true,
 			"jsx": false
 		},
+		"modules": true,
 		"sourceType": "module"
 	},
 	"env": {
@@ -143,12 +144,7 @@
 		"no-irregular-whitespace": 2,
 		"no-iterator": 2,
 		"no-label-var": 2,
-		"no-labels": [
-			2, {
-				"allowLoop": false,
-				"allowSwitch": false
-			}
-		],
+		"no-labels": 2,
 		"no-lone-blocks": 2,
 		"no-mixed-spaces-and-tabs": 2,
 		"no-multi-spaces": 2,

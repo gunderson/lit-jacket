@@ -1,7 +1,7 @@
-const $ = require( 'jquery' );
 import Base from '../../lib/peak-front-end/js/Base';
 import AppModel from './models/App-Model';
 import AppView from './views/App-View';
+const $ = require( 'jquery' );
 
 const remotes = require( '../../../data/remotes.json' );
 // TODO: get state default state

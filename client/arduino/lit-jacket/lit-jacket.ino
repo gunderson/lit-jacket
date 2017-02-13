@@ -3,19 +3,19 @@
 // ------------------------------------------------------------
 
 #include "FastLED.h"
-#define DATA_PIN 14
-#define NUM_LEDS 30
+#define DATA_PIN 13
+#define NUM_LEDS 128
 
 #define LED_TYPE    WS2812
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
 
 #define BRIGHTNESS          96
-#define FRAMES_PER_SECOND  120
+#define FRAMES_PER_SECOND  60
 
 int STRIP_STATE = 0;
 
-int LED_PIN = 13;
+int LED_PIN = 14;
 int LED_STATE = HIGH;
 
 // ------------------------------------------------------------

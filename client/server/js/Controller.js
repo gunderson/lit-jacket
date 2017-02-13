@@ -38,7 +38,7 @@ let elapsedTime = 0;
 let lastTickTime = 0;
 let tickCount = 0;
 let tickTimeout = null;
-let ticksPerSecond = 60;
+let ticksPerSecond = 30;
 let millisPerTick = 1000 / ticksPerSecond;
 let isPlaying = false;
 
@@ -52,12 +52,12 @@ let imageData;
 // display
 
 let pixelArrays = [
-	new Array( 10 ), // wristLeft
-	new Array( 20 ), // sleeveLeft
-	new Array( 30 ), // collarLeft
-	new Array( 30 ), // collarRight
-	new Array( 20 ), // sleeveRight
-	new Array( 10 ), // wristRight
+	new Array( 14 ), // wristLeft
+	new Array( 18 ), // sleeveLeft
+	new Array( 32 ), // collarLeft
+	new Array( 32 ), // collarRight
+	new Array( 18 ), // sleeveRight
+	new Array( 14 ), // wristRight
 ];
 
 // ------------------------------------------------------------
@@ -177,23 +177,28 @@ function update() {
 	if ( !colormapData ) {
 		return false;
 	}
+	let imageRow;
 	switch ( model.colormapTileMode ) {
 		case 'tile':
 			model.positionX = ( model.positionX + model.driftX ) % 1;
 			model.positionY = ( model.positionY + model.driftY ) % 1;
-			currentRow = Math.floor( model.positionY * 256 );
+			currentRow = Math.floor( model.positionY * 255 );
+			imageRow = Array.prototype.slice.call( pixels, w * pxdepth * currentRow, w * pxdepth * ( currentRow + 1 ) );
 			break;
 		case 'mirror':
-			model.positionX = ( ( model.positionX + model.driftX ) % 1 );
-			model.positionY = ( ( model.positionY + model.driftY ) % 1 );
+			model.positionX = ( ( model.positionX + model.driftX ) % 2 );
+			model.positionY = ( ( model.positionY + model.driftY ) % 2 );
 
+			let x = Math.abs( model.positionX ) >= 1 ? model.positionX - 1 : model.positionX;
+			let y = Math.abs( model.positionY ) >= 1 ? model.positionY - 1 : model.positionY;
 
-			currentRow = Math.abs( Math.floor( model.positionY * 256 ) );
+			currentRow = Math.abs( Math.floor( y * 255 ) );
+			if ( model.positionY > 1 ) currentRow = 255 - currentRow;
+			imageRow = Array.prototype.slice.call( pixels, w * pxdepth * currentRow, w * pxdepth * ( currentRow + 1 ) );
 			break;
 	}
 
 
-	let imageRow = Array.prototype.slice.call( pixels, w * pxdepth * currentRow, w * pxdepth * ( currentRow + 1 ) );
 	pixelArrays = distributePixelData( imageRow, pixelArrays );
 	return true;
 };
