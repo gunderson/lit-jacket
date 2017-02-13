@@ -1,0 +1,128 @@
+$transport-bar-height: 35rem
+
+.transport-bar
+	display: -ms-flexbox
+	display: -webkit-flex
+	display: flex
+	-webkit-flex-direction: row
+	-ms-flex-direction: row
+	flex-direction: row
+	-webkit-flex-wrap: nowrap
+	-ms-flex-wrap: nowrap
+	flex-wrap: nowrap
+	-webkit-justify-content: center
+	-ms-flex-pack: center
+	justify-content: center
+	-webkit-align-content: stretch
+	-ms-flex-line-pack: stretch
+	align-content: stretch
+	-webkit-align-items: center
+	-ms-flex-align: center
+	align-items: center
+
+	margin-top: 1rem
+	position: relative
+	background: #000
+	width: 100%
+	height: 35rem
+	font-size: 14rem
+	color: #888
+	line-height: 35rem
+	text-align: center
+
+	>div
+		position: relative
+		-webkit-order: 0
+		-ms-flex-order: 0
+		order: 0
+		-webkit-flex: 1 1 auto
+		-ms-flex: 1 1 auto
+		flex: 1 1 auto
+		-webkit-align-self: stretch
+		-ms-flex-item-align: stretch
+		align-self: stretch
+		height: 25rem
+		padding: 0 10rem
+		margin: 5rem
+
+		.background
+			position: absolute
+			width: 100%
+			height: 100%
+		.content
+			margin: 0
+			padding: 0
+			line-height: 25rem
+
+	button
+		line-height: 25rem
+		width: 100%
+		height: 100%
+		border: none
+		color: #888
+		padding: 0
+		margin: 0
+		font-size: 14rem
+		display: inline-block
+		&:hover
+			color: #fff
+			background-color: #888
+	.play-pause
+		order: 0
+		max-width: 75rem
+		position: relative
+		/*width: 25em*/
+		.background
+		.content
+			button.play
+			button.stop
+				display: none
+	.currenttime
+		order: 1
+	.scrubber
+		order: 2
+		input
+			width: 100%
+		.background
+		.content
+			.load-progress
+			.play-progress
+			.preview
+	.duration
+		order: 3
+		.duration
+		.remaining
+			display: none
+	.volume
+		order: 4
+		.background
+		.content
+			.mute
+				button.mute
+					text-decoration: line-through
+				button.unmute
+					display: none
+			.slider
+				display: none
+				.tray
+				.level-indicator
+				.handle
+	.options
+		order: 5
+		.popout
+			display: none
+			.language
+			.cc
+				button.enable-cc
+					text-decoration: line-through
+				button.disable-cc
+					display: none
+			.quality
+	.fullscreen
+		order: 6
+		.background
+		.content
+			button.enter-fullscreen
+				text-decoration: line-through
+			button.exit-fullscreen
+				display: none

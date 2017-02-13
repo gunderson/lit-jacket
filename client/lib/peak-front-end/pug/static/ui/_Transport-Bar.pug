@@ -1,0 +1,46 @@
+.transport-bar
+	.play-pause
+		.content
+			button.play Play
+			button.stop Stop
+	.currenttime
+		.content 00:00
+	.scrubber
+		.content
+			input(type="range", min="0", max="100", step="0.0001", value="0")
+			.tray
+			.load-progress
+			.play-progress
+			.playhead
+			.preview
+	.volume
+		.content
+			.mute
+				button.mute Mute
+				button.unmute Mute
+			.slider
+				input(type="range", min="0", max="100", step="0.0001")
+	.duration
+		.content
+			.duration 00:00
+			.remaining 00:00
+	.options
+		.content Options
+			.popout
+				select.language Language
+					option(data-lang="en") English
+					option(data-lang="es") Spanish
+				.cc
+					button.enable-cc CC
+					button.disable-cc CC
+				select.quality Quality
+					option(data-res="1920") 1080p
+					option(data-res="1280") 720p
+					option(data-res="960") 540p
+					option(data-res="720") 480p
+					option(data-res="640") 360p
+					option(data-res="427") 240p
+	.fullscreen
+		.content
+			button.enter-fullscreen Fullscreen
+			button.exit-fullscreen Fullscreen
