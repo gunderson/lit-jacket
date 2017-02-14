@@ -5,7 +5,6 @@ const cp = require( 'child_process' );
 
 const route = ( req, res ) => {
 	let data = req.body;
-	console.log( data );
 	if ( data.ref_type === 'tag' ) {
 		res.send( {
 			status: 200,
