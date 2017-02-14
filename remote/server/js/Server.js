@@ -46,9 +46,11 @@ class Server {
 		// ---------------------------------------------------------
 		// Dynamic Routes
 
-		app.get( '/device/:deviceId', require( './routes/device' ) );
+		app.get( '/device/:deviceId', require( './routes/get-device' ) );
 		app.get( '/ip', require( './routes/get-ip' ) );
 		app.post( '/ip', require( './routes/post-ip' ) );
+		app.post( '/google-assistant', require( './routes/post-google-assistant' ) );
+		app.post( '/git-hook', require( './routes/post-git-hook' ) );
 
 		// ---------------------------------------------------------
 		// Static Routes

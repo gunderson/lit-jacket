@@ -11,7 +11,6 @@ const route = ( req, res ) => {
 	if ( ip.indexOf( ':' ) > -1 ) {
 		ip = _.last( ip.split( ':' ) )
 	}
-	console.log( data.ip, ip );
 	if ( data.ip !== ip ) {
 		res.send( {
 			status: 500,
@@ -21,7 +20,6 @@ const route = ( req, res ) => {
 	}
 	// get device-secret
 	let deviceInfoPath = path.resolve( __dirname, '../../../data/devices.json' )
-	console.log( deviceInfoPath )
 	fs.readFileAsync( deviceInfoPath, 'utf-8' )
 		.then( ( str ) => {
 			devices = JSON.parse( str );

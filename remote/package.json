@@ -5,6 +5,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"rebuild": "",
+		"preinstall": "npm i -g gulp pm2 babel",
 		"start-dev": "pm2 start processes.json --env development && pm2 logs",
 		"start-prod": "pm2 start processes.json --env production",
 		"pull": "git reset --hard && git pull -f",
@@ -29,7 +30,7 @@
 		"fs-extra": "^2.0.0",
 		"grunt": "^0.4.5",
 		"morgan": "^1.8.0",
-		"peak-front-end": "github:gunderson/peak-front-end",
+		"request-promise": "^4.1.1",
 		"socket.io": "^1.7.2"
 	},
 	"devDependencies": {
