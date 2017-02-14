@@ -8,6 +8,7 @@
 		"instances": 1,
 		"max_memory_restart": "200M",
 		"watch": true,
+		"ignore_watch": [ "server/colormaps" ],
 		"env_development": {
 			"PORT": 8081,
 			"NODE_ENV": "development"
