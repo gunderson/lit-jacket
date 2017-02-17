@@ -54,12 +54,13 @@ class Server {
 
 		// ---------------------------------------------------------
 		// Static Routes
-		app.set('view engine', 'pug')
-		app.set('views', path.join(__dirname, '/../../www/pug/'))
-		app.use( '/', (req, res) => {
-			res.render('index')
-		} );
+		// app.set('view engine', 'pug')
+		// app.set('views', path.join(__dirname, '/../../www/pug/'))
+		// app.use( '/', (req, res) => {
+		// 	res.render('index')
+		// } );
 		// app.use( '/', require( './routes/www' ) );
+		app.use(express.static( path.join(__dirname, '../../www/dist/') ))
 
 		// ---------------------------------------------------------
 		// Error Handling
