@@ -72,6 +72,17 @@ class Server {
 		app.listen( process.env.PORT || remotes.remote.port, function() {
 			console.log( 'server started on', process.env.PORT || remotes.remote.port );
 		} );
+
+
+		if(process.env.NODE_ENV === 'production'){
+			var https = require('https');
+			var sslRoot = '/etc/letsencrypt/live/aura.works/'
+			var privateKey  = fs.readFileSync(sslRoot + 'privkey.pem', 'utf8');
+			var certificate = fs.readFileSync(sslRoot + 'cert.pem', 'utf8');
+			var credentials = {key: privateKey, cert: certificate};
+			var httpsServer = https.createServer(credentials, app);
+			httpsServer.listen(443);
+		}
 	}
 }
 
