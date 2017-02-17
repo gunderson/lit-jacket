@@ -76,6 +76,7 @@ class Server {
 
 		if(process.env.NODE_ENV === 'production'){
 			var https = require('https');
+			var fs = require('fs')
 			var sslRoot = '/etc/letsencrypt/live/aura.works/'
 			var privateKey  = fs.readFileSync(sslRoot + 'privkey.pem', 'utf8');
 			var certificate = fs.readFileSync(sslRoot + 'cert.pem', 'utf8');
