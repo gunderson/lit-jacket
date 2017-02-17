@@ -9,7 +9,7 @@
 		"max_memory_restart": "200M",
 		"watch": true,
 		"env_development": {
-			"PORT": 8081,
+			"PORT": 80,
 			"NODE_ENV": "development"
 		},
 		"env_production": {
