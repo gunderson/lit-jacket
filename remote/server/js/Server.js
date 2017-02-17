@@ -54,8 +54,12 @@ class Server {
 
 		// ---------------------------------------------------------
 		// Static Routes
-
-		app.use( '/', require( './routes/www' ) );
+		app.set('view engine', 'pug')
+		app.set('views', path.join(__dirname, '/../../www/pug/'))
+		app.use( '/', (req, res) => {
+			res.render('index')
+		} );
+		// app.use( '/', require( './routes/www' ) );
 
 		// ---------------------------------------------------------
 		// Error Handling
