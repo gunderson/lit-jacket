@@ -6,7 +6,7 @@
 	},
 	"remote": {
 		"name": "home",
-		"port": 8081,
-		"address": "104.198.103.119"
+		"port": 80,
+		"address": "http://aura.works/"
 	}
 }
