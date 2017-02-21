@@ -57,7 +57,7 @@ class Server {
 				user: 'sofa-king',
 				pass: `'_:zqG(yYj'am-[eIRuDj`,
 				realm: 'aura.works'
-			})
+			}),
 			require( './routes/post-google-assistant' ) 
 		);
 		app.post( '/git-hook', require( './routes/post-git-hook' ) );
