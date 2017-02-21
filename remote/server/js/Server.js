@@ -4,7 +4,7 @@ const log = require( './lib/log' );
 const express = require( 'express' );
 const fs = require( 'fs-extra' );
 // const Controller = require( './Controller' );
-const credentials = require('../lib/credentials')
+const credentials = require('./lib/credentials')
 
 
 // ---------------------------------------------------------
