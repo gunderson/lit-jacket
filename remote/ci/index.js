@@ -9,7 +9,7 @@ new GitWebhooks( {
 	} )
 	.on( 'payload', ( req, res, payload ) => {
 
-		let data = req.body;
+		let data = payload;
 		if ( data.ref_type === 'tag' ) {
 			res.send( {
 				status: 200,
