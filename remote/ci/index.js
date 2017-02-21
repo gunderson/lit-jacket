@@ -8,7 +8,7 @@ new GitWebhooks( {
 
 	} )
 	.on( 'payload', ( req, res, payload ) => {
-
+		console.log( payload );
 		let data = payload;
 		if ( data.ref_type === 'tag' ) {
 			res.send( {
