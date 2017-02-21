@@ -2,6 +2,7 @@
 const path = require( 'path' );
 const log = require( './lib/log' );
 const express = require( 'express' );
+const fs = require( 'fs-extra' );
 // const Controller = require( './Controller' );
 const credentials = require('../lib/credentials')
 
@@ -69,7 +70,7 @@ class Server {
 		// 	res.render('index')
 		// } );
 		// app.use( '/', require( './routes/www' ) );
-		app.use(express.static( path.join(__dirname, '../../www/dist/') ))
+		app.use( express.static( path.join( __dirname, '../../www/dist/' ) ) )
 
 		// ---------------------------------------------------------
 		// Error Handling
@@ -83,15 +84,17 @@ class Server {
 		} );
 
 
-		if(process.env.NODE_ENV === 'production'){
-			var https = require('https');
-			var fs = require('fs');
+		if ( process.env.NODE_ENV === 'production' ) {
+			var https = require( 'https' );
 			var sslRoot = '/etc/letsencrypt/live/aura.works/'
-			var privateKey  = fs.readFileSync(sslRoot + 'privkey.pem', 'utf8');
-			var certificate = fs.readFileSync(sslRoot + 'cert.pem', 'utf8');
-			var credentials = {key: privateKey, cert: certificate};
-			var httpsServer = https.createServer(credentials, app);
-			httpsServer.listen(443);
+			var privateKey = fs.readFileSync( sslRoot + 'privkey.pem', 'utf8' );
+			var certificate = fs.readFileSync( sslRoot + 'cert.pem', 'utf8' );
+			var credentials = {
+				key: privateKey,
+				cert: certificate
+			};
+			var httpsServer = https.createServer( credentials, app );
+			httpsServer.listen( 443 );
 		}
 	}
 }
