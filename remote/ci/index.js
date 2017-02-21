@@ -2,7 +2,7 @@ const cp = require( 'child_process' );
 const path = require( 'path' );
 const GitWebhooks = require( 'git-web-hooks' )
 
-console.log( "starting hook server" );
+console.log( "starting hook server a" );
 
 new GitWebhooks( {
 
