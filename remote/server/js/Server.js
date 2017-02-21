@@ -3,6 +3,8 @@ const path = require( 'path' );
 const log = require( './lib/log' );
 const express = require( 'express' );
 // const Controller = require( './Controller' );
+const credentials = require('../lib/credentials')
+
 
 // ---------------------------------------------------------
 // Middleware includes
@@ -49,7 +51,14 @@ class Server {
 		app.get( '/device/:deviceId', require( './routes/get-device' ) );
 		app.get( '/ip', require( './routes/get-ip' ) );
 		app.post( '/ip', require( './routes/post-ip' ) );
-		app.post( '/google-assistant', require( './routes/post-google-assistant' ) );
+		app.post( '/google-assistant', 
+			credentials({
+				user: 'sofa-king',
+				pass: `'_:zqG(yYj'am-[eIRuDj`,
+				realm: 'aura.works'
+			})
+			require( './routes/post-google-assistant' ) 
+		);
 		app.post( '/git-hook', require( './routes/post-git-hook' ) );
 
 		// ---------------------------------------------------------
@@ -76,7 +85,7 @@ class Server {
 
 		if(process.env.NODE_ENV === 'production'){
 			var https = require('https');
-			var fs = require('fs')
+			var fs = require('fs');
 			var sslRoot = '/etc/letsencrypt/live/aura.works/'
 			var privateKey  = fs.readFileSync(sslRoot + 'privkey.pem', 'utf8');
 			var certificate = fs.readFileSync(sslRoot + 'cert.pem', 'utf8');
