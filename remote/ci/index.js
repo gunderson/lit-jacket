@@ -2,6 +2,8 @@ const cp = require( 'child_process' );
 const path = require( 'path' );
 const GitWebhooks = require( 'git-web-hooks' )
 
+console.log( "starting hook server" );
+
 new GitWebhooks( {
 
 		PORT: process.env.PORT || 3333
