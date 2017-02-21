@@ -4,7 +4,12 @@ const log = require( './lib/log' );
 const express = require( 'express' );
 const fs = require( 'fs-extra' );
 // const Controller = require( './Controller' );
+<<<<<<< HEAD
 const credentials = require( './lib/credentials' )
+=======
+const credentials = require('./lib/credentials')
+console.log(credentials)
+>>>>>>> afc9c2f3fc2b7d10a4736f861e814242f6f6432c
 
 
 // ---------------------------------------------------------
@@ -86,13 +91,9 @@ class Server {
 		if ( process.env.NODE_ENV === 'production' ) {
 			var https = require( 'https' );
 			var sslRoot = '/etc/letsencrypt/live/aura.works/'
-			var privateKey = fs.readFileSync( sslRoot + 'privkey.pem', 'utf8' );
-			var certificate = fs.readFileSync( sslRoot + 'cert.pem', 'utf8' );
-			var credentials = {
-				key: privateKey,
-				cert: certificate
-			};
-			var httpsServer = https.createServer( credentials, app );
+			var key = fs.readFileSync( sslRoot + 'privkey.pem', 'utf8' );
+			var cert = fs.readFileSync( sslRoot + 'cert.pem', 'utf8' );
+			var httpsServer = https.createServer( { key, cert }, app );
 			httpsServer.listen( 443 );
 		}
 	}
