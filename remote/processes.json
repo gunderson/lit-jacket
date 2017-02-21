@@ -1,21 +1,39 @@
 {
 	"apps": [ {
-		"name": "remote-server",
-		"script": "./server/index.js",
-		"merge_logs": true,
-		"max_restarts": 20,
-		"exec_mode": "fork",
-		"instances": 1,
-		"max_memory_restart": "200M",
-		"watch": true,
-		"env_development": {
-			"PORT": 80,
-			"NODE_ENV": "development"
+			"name": "remote-server",
+			"script": "./server/index.js",
+			"merge_logs": true,
+			"max_restarts": 20,
+			"exec_mode": "fork",
+			"instances": 1,
+			"max_memory_restart": "200M",
+			"env_development": {
+				"PORT": 80,
+				"NODE_ENV": "development"
+			},
+			"env_production": {
+				"PORT": 80,
+				"NODE_ENV": "production"
+			},
+			"cwd": "./"
 		},
-		"env_production": {
-			"PORT": 80,
-			"NODE_ENV": "production"
-		},
-		"cwd": "./"
-	} ]
+		{
+			"name": "ci-server",
+			"script": "./ci/index.js",
+			"merge_logs": true,
+			"max_restarts": 20,
+			"exec_mode": "fork",
+			"instances": 1,
+			"max_memory_restart": "200M",
+			"env_development": {
+				"PORT": 8080,
+				"NODE_ENV": "development"
+			},
+			"env_production": {
+				"PORT": 8080,
+				"NODE_ENV": "production"
+			},
+			"cwd": "./"
+		}
+	]
 }

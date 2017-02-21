@@ -4,7 +4,7 @@ const log = require( './lib/log' );
 const express = require( 'express' );
 const fs = require( 'fs-extra' );
 // const Controller = require( './Controller' );
-const credentials = require('./lib/credentials')
+const credentials = require( './lib/credentials' )
 
 
 // ---------------------------------------------------------
@@ -52,15 +52,14 @@ class Server {
 		app.get( '/device/:deviceId', require( './routes/get-device' ) );
 		app.get( '/ip', require( './routes/get-ip' ) );
 		app.post( '/ip', require( './routes/post-ip' ) );
-		app.post( '/google-assistant', 
-			credentials({
+		app.post( '/google-assistant',
+			credentials( {
 				user: 'sofa-king',
 				pass: `'_:zqG(yYj'am-[eIRuDj`,
 				realm: 'aura.works'
-			}),
-			require( './routes/post-google-assistant' ) 
+			} ),
+			require( './routes/post-google-assistant' )
 		);
-		app.post( '/git-hook', require( './routes/post-git-hook' ) );
 
 		// ---------------------------------------------------------
 		// Static Routes
