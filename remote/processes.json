@@ -7,6 +7,7 @@
 			"exec_mode": "fork",
 			"instances": 1,
 			"max_memory_restart": "200M",
+			"watch": false,
 			"env_development": {
 				"PORT": 80,
 				"NODE_ENV": "development"
