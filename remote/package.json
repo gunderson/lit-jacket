@@ -1,45 +1,45 @@
 {
-  "name": "lit-jacket-remote",
-  "version": "0.0.1",
-  "description": "Lit Jacket",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "rebuild": "",
-    "preinstall": "npm i -g gulp pm2 babel",
-    "start-dev": "pm2 start processes.json --env development && pm2 logs",
-    "start-prod": "pm2 start processes.json --env production",
-    "pull": "git reset --hard && git pull -f",
-    "ssh": "gcloud compute --project lit-jacket ssh --zone us-west1-a instance-1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gunderson/lit-jacket.git"
-  },
-  "author": "patrick@toolofna.com",
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/gunderson/lit-jacket/issues"
-  },
-  "homepage": "https://github.com/gunderson/lit-jacket#readme",
-  "dependencies": {
-    "basic-auth": "^1.1.0",
-    "bluebird": "^3.4.7",
-    "body-parser": "^1.16.0",
-    "chalk": "^1.1.3",
-    "express": "^4.14.1",
-    "express-cache-response-directive": "^1.0.0",
-    "fs-extra": "^2.0.0",
-    "grunt": "^0.4.5",
-    "morgan": "^1.8.0",
-    "request": "^2.79.0",
-    "request-promise": "^4.1.1",
-    "socket.io": "^1.7.2"
-  },
-  "devDependencies": {
-    "grunt-fontina": "^0.1.6",
-    "pug": "^2.0.0-beta11"
-  },
-  "engines": {
-    "node": "6.9.2^"
-  }
+	"name": "lit-jacket-remote",
+	"version": "0.0.1",
+	"description": "Lit Jacket",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"rebuild": "",
+		"preinstall": "",
+		"start-dev": "pm2 start processes.json --env development && pm2 logs",
+		"start-prod": "pm2 start processes.json --env production",
+		"pull": "git reset --hard && git pull -f",
+		"ssh": "gcloud compute --project lit-jacket ssh --zone us-west1-a instance-1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gunderson/lit-jacket.git"
+	},
+	"author": "patrick@toolofna.com",
+	"license": "UNLICENSED",
+	"bugs": {
+		"url": "https://github.com/gunderson/lit-jacket/issues"
+	},
+	"homepage": "https://github.com/gunderson/lit-jacket#readme",
+	"dependencies": {
+		"basic-auth": "^1.1.0",
+		"bluebird": "^3.4.7",
+		"body-parser": "^1.16.0",
+		"chalk": "^1.1.3",
+		"express": "^4.14.1",
+		"express-cache-response-directive": "^1.0.0",
+		"fs-extra": "^2.0.0",
+		"grunt": "^0.4.5",
+		"morgan": "^1.8.0",
+		"request": "^2.79.0",
+		"request-promise": "^4.1.1",
+		"socket.io": "^1.7.2"
+	},
+	"devDependencies": {
+		"grunt-fontina": "^0.1.6",
+		"pug": "^2.0.0-beta11"
+	},
+	"engines": {
+		"node": "6.9.2^"
+	}
 }
