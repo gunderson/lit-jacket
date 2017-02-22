@@ -2,7 +2,7 @@ const cp = require( 'child_process' );
 const path = require( 'path' );
 const GitWebhooks = require( 'git-web-hooks' )
 
-console.log( "starting hook server a" );
+console.log( "starting hook server" );
 
 new GitWebhooks( {
 
@@ -10,7 +10,6 @@ new GitWebhooks( {
 
 	} )
 	.on( 'payload', ( req, res, payload ) => {
-		console.log( arguments );
 		let data = payload;
 		if ( data.ref_type === 'tag' ) {
 			res.setHeader( 'Content-Type', 'application/json' )
