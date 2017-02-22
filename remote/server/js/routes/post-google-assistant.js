@@ -21,7 +21,7 @@ const route = ( req, res ) => {
 			} );
 			let options = {
 				method: 'GET',
-				uri: 'http://' + path.join( `${device.address}:${device.port}`, 'preset', data.action ),
+				uri: 'http://' + path.join( `${device.address}:${device.port}`, 'color', 'random' ),
 				headers: {
 					'User-Agent': 'Google-Assistant'
 				},

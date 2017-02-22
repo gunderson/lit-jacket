@@ -5,6 +5,7 @@ const chalk = require( 'chalk' );
 const _ = require( 'lodash' );
 const Promise = require( 'bluebird' );
 const getPixels = Promise.promisify( require( 'get-pixels' ) );
+const Color = require( 'color2' );
 const SerialPort = require( 'serialport' );
 const Model = require( '../../lib/peak-front-end/js/models/Model' );
 
@@ -21,7 +22,7 @@ const COMMANDS = {
 
 // animation
 // TODO: move to model
-let pixels, w, h, pxdepth;
+let pixels, pixels1, w, h, pxdepth;
 let currentRow = 0;
 let directionX = 1;
 let directionY = 1;
@@ -88,6 +89,34 @@ class Controller {
 		return setupPromise.then( play )
 			.catch( throwError );
 	}
+	setColor( color ) {
+		let c;
+		if ( color === 'random' ) {
+			let h = Math.random() * 360;
+			let s = Math.random() * 50 + 50;
+			let l = 100;
+			let a = 1;
+			c = Color.from( {
+					h,
+					s,
+					l,
+					a
+				} )
+				.toArray( 'rgba' );
+		} else {
+			c = Color( color )
+				.toArray( 'rgba' );
+		}
+		px = [];
+		// make solid color
+		let i = 256 * 256;
+		while ( --i ) {
+			px = px.concat( c );
+		}
+		pixels = px;
+		w = 256;
+		h = 256;
+	}
 
 	setColormap( file ) {
 		return setColormap.apply( this, arguments );
@@ -110,6 +139,18 @@ class Controller {
 	}
 }
 
+class Animator {
+	constructor( colormapData ) {
+		this.pixels = colormapData.data;
+		this.w = px.shape[ 0 ];
+		this.h = px.shape[ 1 ];
+		this.pxdepth = px.shape[ 2 ];
+		this.currentRow = 0;
+		this.directionX = 1;
+		this.directionY = 1;
+	}
+}
+
 function setupPort() {
 	port = new SerialPort( '/dev/ttyAMA0', {
 		autoOpen: false,
@@ -125,7 +166,6 @@ function setupPort() {
 }
 
 function setColormap() {
-	console.log( "setColormap", arguments );
 	return getPixels.apply( this, arguments )
 		.then( ( px ) => {
 			colormapData = px;
