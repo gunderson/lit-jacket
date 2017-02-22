@@ -9,6 +9,7 @@ const route = ( req, res ) => {
 	// parse incoming message
 	let data = req.body || {};
 	data.action = data.action || 'red'
+	console.log( data );
 
 	// look up device ip
 	let deviceInfoPath = path.resolve( __dirname, '../../../data/devices.json' )
