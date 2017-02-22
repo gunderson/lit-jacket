@@ -13,16 +13,17 @@ new GitWebhooks( {
 		console.log( arguments );
 		let data = payload;
 		if ( data.ref_type === 'tag' ) {
-			res.send( {
+			res.setHeader( 'Content-Type', 'application/json' )
+			res.end( JSON.stringify( {
 				status: 200,
 				message: 'Webhook Server Running: tag'
-			} );
+			} ) );
 		} else if ( data.ref === 'refs/heads/master' ) {
-			res.send( {
+			res.setHeader( 'Content-Type', 'application/json' )
+			res.end( JSON.stringify( {
 				status: 200,
 				message: 'Webhook Server Running: Push to master'
-			} );
-			res.end();
+			} ) );
 			let gitcp = cp.spawn( 'git', [ 'pull', '-f' ], {
 				detached: true
 			} );
