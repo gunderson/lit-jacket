@@ -176,7 +176,7 @@ export default class ControlFormView extends View {
 		this.scratchpadCtx.drawImage( this.colormapTmp, 0, 0, this.colormapTmp.width, this.colormapTmp.height, 0, 0, 256, 256 );
 		let imageData = this.scratchpadCtx.getImageData( 0, 0, 256, 256 );
 		let colormapData = {
-			name: this.$( '.colormap-name input[type=text]' )
+			name: this.$( '.colormap-name' )
 				.val() || Date.now()
 				.toString(),
 			data: Array.prototype.slice.apply( imageData.data ),

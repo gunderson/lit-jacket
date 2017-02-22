@@ -86,9 +86,10 @@ class Controller {
 
 		port.open();
 
-		return setupPromise.then( play )
+		setupPromise.then( play )
 			.catch( throwError );
 	}
+
 	setColor( color ) {
 		let c;
 		if ( color === 'random' ) {
@@ -96,18 +97,20 @@ class Controller {
 			let s = Math.random() * 50 + 50;
 			let l = 100;
 			let a = 1;
-			c = Color.from( {
+			c = new Color( {
 					h,
 					s,
 					l,
 					a
 				} )
-				.toArray( 'rgba' );
+				.toArray( 'rgb' )
+				.concat( 255 );
 		} else {
-			c = Color( color )
-				.toArray( 'rgba' );
+			c = new Color( color )
+				.toArray( 'rgb' )
+				.concat( 255 );
 		}
-		px = [];
+		let px = [];
 		// make solid color
 		let i = 256 * 256;
 		while ( --i ) {
