@@ -35,7 +35,9 @@ const route = ( req, res ) => {
 					console.log( ret );
 					res.send( {
 						status: 200,
-						message: 'received successfully forwarded to device'
+						message: 'received successfully forwarded to device',
+						speech: `Your color is ${ret.color}`,
+						displayText: `Your color is ${ret.color}`,
 					} )
 				} )
 		} )

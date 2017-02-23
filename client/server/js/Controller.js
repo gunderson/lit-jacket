@@ -91,37 +91,37 @@ class Controller {
 	}
 
 	setColor( color ) {
-		let c;
+		let c, colorArray;
 		if ( color === 'random' ) {
 			let h = Math.random() * 360;
 			let s = Math.random() * 50 + 50;
 			let l = Math.random() * 50 + 50;
 			let a = 1;
 			c = new Color( {
-					h,
-					s,
-					l,
-					a
-				} )
-				.toArray( 'rgb' )
+				h,
+				s,
+				l,
+				a
+			} );
+			colorArray = c.toArray( 'rgb' )
 				.concat( 255 );
 		} else {
-			c = new Color( color )
-				.toArray( 'rgb' )
+			colorArray = c.toArray( 'rgb' )
 				.concat( 255 );
 		}
 		let px = new Uint8Array( 256 * 256 * 4 );
 		// make solid color
 		for ( var i = 0; i < px.length; i += 4 ) {
-			px[ i + 0 ] = c[ 0 ];
-			px[ i + 1 ] = c[ 1 ];
-			px[ i + 2 ] = c[ 2 ];
-			px[ i + 3 ] = c[ 3 ];
+			px[ i + 0 ] = colorArray[ 0 ];
+			px[ i + 1 ] = colorArray[ 1 ];
+			px[ i + 2 ] = colorArray[ 2 ];
+			px[ i + 3 ] = colorArray[ 3 ];
 		}
 		pixels = px;
 		pxdepth = 4;
 		w = 256;
 		h = 256;
+		return c.stringify( 'keyword' );
 	}
 
 	setColormap( file ) {
