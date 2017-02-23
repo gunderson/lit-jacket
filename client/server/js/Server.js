@@ -4,6 +4,7 @@ const express = require( 'express' );
 const socketio = require( 'socket.io' );
 const _ = require( 'lodash' );
 const log = require( './lib/log' );
+const rp = require( 'request-promise' );
 
 const Controller = require( './Controller' );
 const AppModel = require( './models/App-Model' );
@@ -97,7 +98,12 @@ class Server {
 
 		// ---------------------------------------------------------
 		// Start Server
-		server.listen( options.remotes.device.port, function() {} );
+		server.listen( options.remotes.device.port, function() {
+			rp.get( '/update-remote' )
+				.then( () => {
+					console.log( 'updating remote address' );
+				} );
+		} );
 	}
 }
 
