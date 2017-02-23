@@ -21,7 +21,7 @@ class AppModel extends Model {
 		super(
 			Model.merge( state, attributes ),
 			Model.merge( {
-				url: 'http://localhost/state',
+				url: '/state',
 				events: [ {
 					target: 'this',
 					eventName: 'change:presetName',
