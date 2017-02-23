@@ -2,7 +2,7 @@
 	"device": {
 		"name": "aura",
 		"port": 8080,
-		"address": "oracle.local"
+		"address": "oracleofna.local"
 	},
 	"remote": {
 		"name": "home",
