@@ -53,11 +53,11 @@ class Server {
 		app.get( '/ip', require( './routes/get-ip' ) );
 		app.post( '/ip', require( './routes/post-ip' ) );
 		app.post( '/google-assistant',
-			credentials( {
-				user: 'sofa-king',
-				pass: `'_:zqG(yYj'am-[eIRuDj`,
-				realm: 'aura.works'
-			} ),
+			// credentials( {
+			// 	user: 'sofa-king',
+			// 	pass: `'_:zqG(yYj'am-[eIRuDj`,
+			// 	realm: 'aura.works'
+			// } ),
 			require( './routes/post-google-assistant' )
 		);
 
