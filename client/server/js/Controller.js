@@ -95,7 +95,7 @@ class Controller {
 		if ( color === 'random' ) {
 			let h = Math.random() * 360;
 			let s = Math.random() * 50 + 50;
-			let l = 100;
+			let l = Math.random() * 50 + 50;
 			let a = 1;
 			c = new Color( {
 					h,
