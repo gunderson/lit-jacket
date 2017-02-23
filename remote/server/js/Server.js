@@ -87,7 +87,7 @@ class Server {
 			var https = require( 'https' );
 			var sslRoot = '/etc/letsencrypt/live/aura.works/'
 			var key = fs.readFileSync( sslRoot + 'privkey.pem', 'utf8' );
-			var cert = fs.readFileSync( sslRoot + 'cert.pem', 'utf8' );
+			var cert = fs.readFileSync( sslRoot + 'fullchain.pem', 'utf8' );
 			var httpsServer = https.createServer( {
 				key,
 				cert
