@@ -25,6 +25,7 @@ const route = ( req, res ) => {
 				headers: {
 					'User-Agent': 'Google-Assistant'
 				},
+				data: data,
 				followAllRedirects: true,
 				json: true // Automatically parses the JSON string in the response
 			};

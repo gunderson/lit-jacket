@@ -110,13 +110,16 @@ class Controller {
 				.toArray( 'rgb' )
 				.concat( 255 );
 		}
-		let px = [];
+		let px = new Uint8Array( 256 * 256 * 4 );
 		// make solid color
-		let i = 256 * 256;
-		while ( --i ) {
-			px = px.concat( c );
+		for ( var i = 0; i < px.length; i += 4 ) {
+			px[ i + 0 ] = c[ 0 ];
+			px[ i + 1 ] = c[ 1 ];
+			px[ i + 2 ] = c[ 2 ];
+			px[ i + 3 ] = c[ 3 ];
 		}
 		pixels = px;
+		pxdepth = 4;
 		w = 256;
 		h = 256;
 	}
