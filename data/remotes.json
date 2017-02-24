@@ -7,6 +7,6 @@
 	"remote": {
 		"name": "home",
 		"port": 80,
-		"address": "http://aura.works/"
+		"address": "aura.works/"
 	}
 }
