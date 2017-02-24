@@ -4,7 +4,7 @@ const fs = Promise.promisifyAll( require( 'fs-extra' ) );
 
 var route = ( model, controller ) => ( req, res ) => {
 	let color = req.params.color;
-	colorname = controller.setColor( color );
+	let colorname = controller.setColor( color );
 	res.send( {
 		status: 200,
 		message: 'successfully set color',
