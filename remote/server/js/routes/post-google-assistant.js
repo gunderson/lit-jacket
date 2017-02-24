@@ -9,13 +9,14 @@ const SendJSON = require( '../lib/SendJSON' );
 
 const route = ( io ) => ( req, res ) => {
 	let data = req.body || {};
-	let colorname = "";
+	let colorname = "",
+		colorSpeech;
 	switch ( data.result.action ) {
 		case "select_aura":
 			let names = _.keys( colornames );
 			// choose random color
 			colorname = names[ Math.floor( Math.random() * names.length ) ];
-			let colorSpeech = parseColorname( colorname );
+			colorSpeech = parseColorname( colorname );
 			// respond to assisitant
 			SendJSON( res, {
 				status: 200,
@@ -28,7 +29,7 @@ const route = ( io ) => ( req, res ) => {
 			break;
 		case "change_color":
 			colorname = data.result.parameters.color;
-			let colorSpeech = parseColorname( colorname );
+			colorSpeech = parseColorname( colorname );
 			// respond to assisitant
 			SendJSON( res, {
 				status: 200,
