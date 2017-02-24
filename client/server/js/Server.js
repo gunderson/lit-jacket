@@ -89,6 +89,7 @@ class Server {
 		app.get( '/state', require( './routes/get-state' )( model ) );
 		app.get( '/color/:color', require( './routes/post-color' )( model, controller ) );
 		app.post( '/state', upload.single( 'colormap' ), require( './routes/post-state' )( model, controller ) );
+
 		// ---------------------------------------------------------
 		// Static Routes
 

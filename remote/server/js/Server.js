@@ -69,8 +69,8 @@ class Server {
 		// app.use( '/', (req, res) => {
 		// 	res.render('index')
 		// } );
-		// app.use( '/', require( './routes/www' ) );
-		app.use( express.static( path.join( __dirname, '../../www/dist/' ) ) )
+		app.use( '/', require( './routes/www' ) );
+		// app.use( express.static( path.join( __dirname, '../../www/dist/' ) ) )
 
 		// ---------------------------------------------------------
 		// Error Handling
