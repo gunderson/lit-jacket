@@ -5,7 +5,7 @@ const chalk = require( 'chalk' );
 let socket;
 
 module.exports = function SetupRemoteSocket( model, controller ) {
-	socket = io( `http://${model.remotes.remote.address}` );
+	socket = io.connect( `http://${model.remotes.remote.address}` );
 	socket.on( 'connect', () => {
 		console.log( `${chalk.green('>>>')} Remote Socket Connected` );
 
