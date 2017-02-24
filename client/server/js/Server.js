@@ -102,10 +102,10 @@ class Server {
 		// ---------------------------------------------------------
 		// Start Server
 		server.listen( options.remotes.device.port, function() {
-			rp.get( '/update-remote' )
-				.then( () => {
-					console.log( 'updating remote address' );
-				} );
+			// rp.get( '/update-remote' )
+			// 	.then( () => {
+			// 		console.log( 'updating remote address' );
+			// 	} );
 		} );
 	}
 }
