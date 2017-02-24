@@ -20,7 +20,7 @@ class Server {
 		var remotes = options.remotes;
 		var app = express();
 		var server = require( 'http' )
-			.Server( app );
+			.createServer( app );
 		var io = socketio( server );
 
 
