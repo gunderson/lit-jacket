@@ -75,6 +75,8 @@ class Server {
 		// Sockets
 
 		SetupSocket( io, model );
+		SetupRemoteSocket( model, controller );
+
 
 		// ---------------------------------------------------------
 		// Dynamic Routes

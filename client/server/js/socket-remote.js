@@ -12,7 +12,7 @@ module.exports = function SetupRemoteSocket( model, controller ) {
 		socket.on( 'setColor', ( colorname ) => {
 			controller.setColor( colorname );
 		} )
-		socket.on( 'close', () => {
+		socket.on( 'disconnect', () => {
 			SetupRemoteSocket( model, controller );
 		} )
 	} );
