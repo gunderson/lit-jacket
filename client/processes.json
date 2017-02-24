@@ -10,11 +10,11 @@
 		"watch": true,
 		"ignore_watch": [ "server/colormaps" ],
 		"env_development": {
-			"PORT": 8081,
+			"PORT": 8080,
 			"NODE_ENV": "development"
 		},
 		"env_production": {
-			"PORT": 8081,
+			"PORT": 8080,
 			"NODE_ENV": "production"
 		},
 		"cwd": "./"

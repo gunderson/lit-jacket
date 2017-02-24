@@ -11,7 +11,7 @@ export default class AppModel extends SocketModel {
 			Base.merge( stateAttributes, attributes ),
 			Base.merge( {
 				name: 'App-Model',
-				url: `http://localhost:${options.remotes.device.port}`,
+				url: `/`,
 				events: [ {
 					target: 'body',
 					eventName: 'resize',
