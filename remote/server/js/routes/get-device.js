@@ -2,7 +2,7 @@ const _ = require( 'lodash' );
 const Promise = require( 'bluebird' );
 const fs = Promise.promisifyAll( require( 'fs-extra' ) );
 const path = require( 'path' );
-const SendJSON = require( './lib/SendJSON' );
+const SendJSON = require( '../lib/SendJSON' );
 
 const route = ( req, res ) => {
 	let deviceId = req.params.deviceId;

@@ -1,5 +1,5 @@
 const _ = require( 'lodash' );
-const SendJSON = require( './lib/SendJSON' );
+const SendJSON = require( '../lib/SendJSON' );
 
 // simple route to bounce an IP address back at requester
 module.exports = ( req, res ) => {

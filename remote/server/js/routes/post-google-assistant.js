@@ -5,7 +5,7 @@ const Promise = require( 'bluebird' );
 const fs = Promise.promisifyAll( require( 'fs-extra' ) );
 const makeHash = require( '../../../lib/js/make-hash' );
 const colornames = require( '../../../../data/colornames.json' );
-const SendJSON = require( './lib/SendJSON' );
+const SendJSON = require( '../lib/SendJSON' );
 
 const route = ( io ) => ( req, res ) => {
 	let data = req.body || {};
