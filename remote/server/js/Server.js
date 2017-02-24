@@ -3,9 +3,9 @@ const path = require( 'path' );
 const log = require( './lib/log' );
 const express = require( 'express' );
 const fs = require( 'fs-extra' );
-// const Controller = require( './Controller' );
+const socketio = require( 'socket.io' );
 const credentials = require( './lib/credentials' )
-
+const SetupSocket = require( './SetupSocket' );
 
 // ---------------------------------------------------------
 // Middleware includes
@@ -14,13 +14,15 @@ const credentials = require( './lib/credentials' )
 const bodyParser = require( 'body-parser' );
 const logger = require( 'morgan' );
 const cacheResponseDirective = require( 'express-cache-response-directive' );
-const HeaderUtils = require( './lib/HeaderUtils' );
 
 class Server {
 	constructor( options ) {
 		var remotes = options.remotes;
 		var app = express();
-		// var controller = new Controller();
+		var server = require( 'http' )
+			.Server( app );
+		var io = socketio( server );
+
 
 		// ---------------------------------------------------------
 		// Middleware
@@ -37,14 +39,13 @@ class Server {
 			res.cacheControl( {
 				maxAge: 300
 			} );
-			HeaderUtils.addJSONHeader( res );
-			HeaderUtils.addCORSHeader( res );
 			next();
 		} );
 
 		// ---------------------------------------------------------
 		// Sockets
 
+		SetupSocket( io );
 
 		// ---------------------------------------------------------
 		// Dynamic Routes
@@ -58,7 +59,7 @@ class Server {
 				pass: `'_:zqG(yYj'am-[eIRuDj`,
 				realm: 'aura.works'
 			} ),
-			require( './routes/post-google-assistant' )
+			require( './routes/post-google-assistant' )( io )
 		);
 
 		// ---------------------------------------------------------

@@ -2,7 +2,7 @@ const _ = require( 'lodash' );
 const Promise = require( 'bluebird' );
 const fs = Promise.promisifyAll( require( 'fs-extra' ) );
 const path = require( 'path' );
-// const makeHash = require( '../../../../lib/js/make-hash' );
+const SendJSON = require( './lib/SendJSON' );
 
 const route = ( req, res ) => {
 	let deviceId = req.params.deviceId;
@@ -15,12 +15,12 @@ const route = ( req, res ) => {
 				deviceId: deviceId
 			} );
 			if ( device ) {
-				console.log( `http://${device.ip}:${device.port}` )
+				console.log( `redirecting to http://${device.ip}:${device.port}` )
 				res.redirect( `http://${device.ip}:${device.port}` )
 			}
 		} )
 		.catch( ( err ) => {
-			res.send( {
+			SendJSON( res, {
 				status: 500,
 				message: 'error',
 				error: err

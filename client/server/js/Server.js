@@ -10,6 +10,7 @@ const Controller = require( './Controller' );
 const AppModel = require( './models/App-Model' );
 
 const SetupSocket = require( './socket' );
+const SetupRemoteSocket = require( './socket-remote' );
 
 // ---------------------------------------------------------
 // Middleware includes
