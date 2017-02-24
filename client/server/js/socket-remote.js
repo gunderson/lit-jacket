@@ -10,6 +10,7 @@ module.exports = function SetupRemoteSocket( model, controller ) {
 		console.log( `${chalk.green('>>>')} Remote Socket Connected` );
 
 		socket.on( 'setColor', ( colorname ) => {
+			console.log( `${chalk.cyan('>>>')} Change color to ${colorname}` );
 			controller.setColor( colorname );
 		} )
 		socket.on( 'disconnect', () => {
