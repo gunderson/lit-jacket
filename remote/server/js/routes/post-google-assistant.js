@@ -88,7 +88,7 @@ const route = ( io ) => ( req, res ) => {
 
 function parseColorname( colorname ) {
 	return _.chain( colorname )
-		.snakecase()
+		.snakeCase()
 		.replace( '_', ' ' )
 		.value();
 }
