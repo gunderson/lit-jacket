@@ -79,7 +79,7 @@ class Server {
 
 		// ---------------------------------------------------------
 		// Start Server
-		app.listen( process.env.PORT || remotes.remote.port, function() {
+		server.listen( process.env.PORT || remotes.remote.port, function() {
 			console.log( 'server started on', process.env.PORT || remotes.remote.port );
 		} );
 
