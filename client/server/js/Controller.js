@@ -122,7 +122,7 @@ class Controller {
 		pxdepth = 4;
 		w = 256;
 		h = 256;
-		return c.stringify( 'keyword' );
+		return c.toString( 'keyword' );
 	}
 
 	setColormap( file ) {
