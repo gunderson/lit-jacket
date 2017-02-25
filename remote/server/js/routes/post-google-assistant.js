@@ -25,7 +25,7 @@ const route = ( io ) => ( req, res ) => {
 				displayText: `Your aura appears to be ${colorSpeech}`,
 			} );
 			// set jacket color
-			io.broadcast( 'setColor', colorname.toLowerCase() );
+			io.emit( 'setColor', colorname.toLowerCase() );
 			break;
 		case "change_color":
 			colorname = data.result.parameters.color;
@@ -37,7 +37,7 @@ const route = ( io ) => ( req, res ) => {
 				speech: `The Oracle is set to ${colorSpeech}`,
 				displayText: `The Oracle is set to ${colorSpeech}`,
 			} );
-			io.broadcast( 'setColor', colorname.toLowerCase() );
+			io.emit( 'setColor', colorname.toLowerCase() );
 			break;
 	}
 
