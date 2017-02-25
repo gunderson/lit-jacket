@@ -106,6 +106,7 @@ class Controller {
 			colorArray = c.toArray( 'rgb' )
 				.concat( 255 );
 		} else {
+			c = new Color( color );
 			colorArray = c.toArray( 'rgb' )
 				.concat( 255 );
 		}
