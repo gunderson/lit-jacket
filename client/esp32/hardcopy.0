@@ -1,0 +1,48 @@
+>>> for dirname, dirnames, filenames in os.walk('.'):
+...         # print path to all subdirectories first.
+...             for subdirname in dirnames:
+...                         print(os.path.join(dirname, subdirname))
+...
+...                             # print path to all filenames.
+...                                 for filename in filenames:
+...                                             print(os.path.join(dirname, filename))
+...
+...                                                 # Advanced usage:
+...                                                         # editing the 'dirnames' list will stop os.walk() from recursing into there.
+...                                                             if '.git' in dirnames:
+...                                                                         # don't go into any .git directories.
+...                                                                                 dirnames.remove('.git')
+...
+...
+...
+Traceback (most recent call last):
+  File "<stdin>", line 7
+IndentationError: unexpected indent
+>>> print(os.path("/"))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'module' object has no attribute 'path'
+>>> print(os.path.join("/"))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'module' object has no attribute 'path'
+>>> os.listdir("/")
+['flash']
+>>> os.listdir("/flash")
+[]
+>>> exit
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'exit' is not defined
+>>> exit()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'exit' is not defined
+>>>
+PYB: soft reboot
+could not open file 'boot.py' for reading
+could not open file 'main.py' for reading
+MicroPython 741918a-dirty on 2017-03-11; ESP32 module with ESP32
+Type "help()" for more information.
+>>>
+>>>

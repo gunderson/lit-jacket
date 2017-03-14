@@ -2,8 +2,8 @@
 // DISPLAY VARS
 // ------------------------------------------------------------
 
-#include "FastLED.h"
-#define DATA_PIN 13
+#include <FastLED.h>
+#define LED_PIN 13
 #define NUM_LEDS 128
 
 #define LED_TYPE    WS2812
@@ -15,11 +15,10 @@ CRGB leds[NUM_LEDS];
 
 int STRIP_STATE = 0;
 
-int LED_PIN = 14;
 int LED_STATE = HIGH;
 
 // ------------------------------------------------------------
-// COMMUNICATION VARS
+// TXRX VARS
 // ------------------------------------------------------------
 
 #define HWSERIAL Serial1
@@ -33,7 +32,7 @@ int bufferIndex = 0;
 boolean commandReady = false;  // whether the string is complete
 
 // ------------------------------------------------------------
-// COMMUNICATION FUNCTIONS
+// TXRX FUNCTIONS
 // ------------------------------------------------------------
 
 void hwSerialEvent() {
@@ -90,13 +89,53 @@ void resetBuffer(){
 }
 
 // ------------------------------------------------------------
+// I2C VARS
+// ------------------------------------------------------------
+
+#include <ADXL345.h>
+#include <bma180.h>
+#include <HMC58X3.h>
+#include <ITG3200.h>
+#include <MS561101BA.h>
+#include <I2Cdev.h>
+#include <MPU60X0.h>
+#include <EEPROM.h>
+
+//#define DEBUG
+#include "DebugUtils.h"
+#include "CommunicationUtils.h"
+#include "FreeIMU.h"
+#include <Wire.h>
+#include <SPI.h>
+
+int raw_values[9];
+//char str[512];
+float ypr[3]; // yaw pitch roll
+float val[9];
+
+// Set the FreeIMU object
+FreeIMU my3IMU = FreeIMU();
+
+
+
+// ------------------------------------------------------------
+// I2C FUNCTIONS
+// ------------------------------------------------------------
+
+
+// ------------------------------------------------------------
 // SETUP
 // ------------------------------------------------------------
 
 void setup() {
+	Wire.begin();
+	delay(5);
+
+	my3IMU.init(true); // the parameter enable or disable fast mode
+	delay(5);
 
 	// initialize display
-	LEDS.addLeds<LED_TYPE,DATA_PIN,COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
+	LEDS.addLeds<LED_TYPE,LED_PIN,COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
 	LEDS.setBrightness(BRIGHTNESS);
 
 	// initialize comm
@@ -137,35 +176,14 @@ void toggleLedPin(){
 // ------------------------------------------------------------
 
 void writeLEDs(int colorBytes[], int length){
-	// set new state
-	// STRIP_STATE = (STRIP_STATE + 1) % 4;
-
-	// // fill array
-	// switch (STRIP_STATE){
-	// 	case 0:
-	// 		for (int i = 0; i < length; i += 3){
-	// 			leds[i] = CRGB( 0, 0, 0);
-	// 		}
-	// 		break;
-	// 	case 1:
-	// 		for (int i = 0; i < length; i += 3){
-	// 			leds[i] = CRGB( 255, 0, 0);
-	// 		}
-	// 		break;
-	// 	case 2:
-	// 		for (int i = 0; i < length; i += 3){
-	// 			leds[i] = CRGB( 0, 255, 0);
-	// 		}
-	// 		break;
-	// 	case 3:
-	// 		for (int i = 0; i < length; i += 3){
-	// 			leds[i] = CRGB( 0, 0, 255);
-	// 		}
-	// 		break;
-	// }
 
 	for (int i = 0; i < NUM_LEDS; i++){
 		leds[i] = CRGB( colorBytes[ i * 3 ], colorBytes[ i * 3 + 1 ], colorBytes[ i * 3 + 2 ]);
 	}
 	FastLED.show();
+}
+
+void readSensors(){
+	my3IMU.getValues(val);
+	my3IMU.getYawPitchRoll(ypr);
 }
