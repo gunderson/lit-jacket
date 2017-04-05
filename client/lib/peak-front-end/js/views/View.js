@@ -149,6 +149,7 @@ class View extends Base {
 					$( `<${this.tagname} class='${this.classname}' id='${this.id}' />` )
 					.first()[ 0 ];
 				this.$el = $( this.el );
+				console.log( this.$el );
 			}
 
 			if ( this.template ) {
