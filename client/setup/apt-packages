@@ -1,0 +1,13 @@
+gcc \
+g++ \
+make \
+screen \
+git \
+git-https \
+openssh-sftp-server \
+nodejs \
+npm\
+libnss-mdns \
+avahi-daemon\
+avahi-discover \
+netatalk\
