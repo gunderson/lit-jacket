@@ -164,7 +164,7 @@ class Animator {
 
 function setupPort() {
 	// let portAddress = '/dev/ttyAMA0';
-	let portAddress = '/dev/ttyGS0';
+	let portAddress = '/dev/ttyMFD1';
 	port = new SerialPort( portAddress, {
 		autoOpen: false,
 		baudRate: 3000000,
