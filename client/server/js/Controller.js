@@ -146,7 +146,7 @@ class Controller {
 	}
 
 	toggleLed() {
-		sendCommand( TOGGLE_LED );
+		sendCommand( COMMANDS.TOGGLE_LED );
 	}
 }
 
