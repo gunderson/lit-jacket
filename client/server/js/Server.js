@@ -88,6 +88,7 @@ class Server {
 		app.get( '/colormaps', require( './routes/get-colormaps' )( model ) );
 		app.get( '/state', require( './routes/get-state' )( model ) );
 		app.get( '/color/:color', require( './routes/post-color' )( model, controller ) );
+		app.get( '/led', require( './routes/get-led' )( model, controller ) );
 		app.post( '/state', upload.single( 'colormap' ), require( './routes/post-state' )( model, controller ) );
 
 		// ---------------------------------------------------------

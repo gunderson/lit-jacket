@@ -144,6 +144,10 @@ class Controller {
 	reset() {
 		reset();
 	}
+
+	toggleLed() {
+		sendCommand( TOGGLE_LED );
+	}
 }
 
 class Animator {

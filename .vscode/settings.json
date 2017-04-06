@@ -2,5 +2,10 @@
 {
 	"pugbeautify.fillTab": true,
 	"pugbeautify.omitDiv": true,
-	"pugbeautify.tabSize": true
+	"pugbeautify.tabSize": true,
+	"files.associations": {
+		"array": "cpp",
+		"hashtable": "cpp",
+		"initializer_list": "cpp"
+	}
 }

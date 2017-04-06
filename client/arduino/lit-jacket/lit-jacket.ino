@@ -4,6 +4,7 @@
 
 #include <FastLED.h>
 #define LED_PIN 15
+#define STATUS_PIN 13
 #define NUM_LEDS 128
 
 #define LED_TYPE WS2812
@@ -41,7 +42,7 @@ void hwSerialEvent()
     {
 	// get the new byte:
 	int inByte = HWSERIAL.read();
-	// Serial.println(inByte);
+	Serial.println(inByte);
 
 	// activeCommand == 0 means no active command
 	if (activeCommand == 0)
@@ -75,8 +76,8 @@ void hwSerialEvent()
 
 void executeCommand(int command)
 {
-    // Serial.print("Command: ");
-    // Serial.println(command);
+    Serial.print("Command: ");
+    Serial.println(command);
     switch (command)
     {
     case 1:
@@ -100,29 +101,13 @@ void resetBuffer()
 // I2C VARS
 // ------------------------------------------------------------
 
-#include <ADXL345.h>
-#include <bma180.h>
-#include <HMC58X3.h>
-#include <ITG3200.h>
-#include <MS561101BA.h>
-#include <I2Cdev.h>
-#include <MPU60X0.h>
-#include <EEPROM.h>
+// int raw_values[9];
+// //char str[512];
+// float ypr[3]; // yaw pitch roll
+// float val[9];
 
-//#define DEBUG
-#include "DebugUtils.h"
-#include "CommunicationUtils.h"
-#include "FreeIMU.h"
-#include <Wire.h>
-#include <SPI.h>
-
-int raw_values[9];
-//char str[512];
-float ypr[3]; // yaw pitch roll
-float val[9];
-
-// Set the FreeIMU object
-FreeIMU my3IMU = FreeIMU();
+// // Set the FreeIMU object
+// FreeIMU my3IMU = FreeIMU();
 
 // ------------------------------------------------------------
 // I2C FUNCTIONS
@@ -134,11 +119,11 @@ FreeIMU my3IMU = FreeIMU();
 
 void setup()
 {
-    Wire.begin();
-    delay(5);
+    // Wire.begin();
+    // delay(5);
 
-    my3IMU.init(true); // the parameter enable or disable fast mode
-    delay(5);
+    // my3IMU.init(true); // the parameter enable or disable fast mode
+    // delay(5);
 
     // initialize display
     LEDS.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
@@ -146,14 +131,16 @@ void setup()
 
     // initialize comm
     HWSERIAL.begin(BAUDRATE, SERIAL_8N1);
-    // Serial.begin(115200);
+    Serial.begin(115200);
     // reset command buffer
     commandReady = false;
     activeCommand = 0;
     bufferIndex = 0;
 
+    pinMode(STATUS_PIN, OUTPUT);
+    digitalWrite(STATUS_PIN, LED_STATE);
     pinMode(LED_PIN, OUTPUT);
-    digitalWrite(LED_PIN, LED_STATE);
+    digitalWrite(LED_PIN, HIGH);
 }
 
 // ------------------------------------------------------------
@@ -182,7 +169,7 @@ void toggleLedPin()
 	LED_STATE = LOW;
     }
 
-    digitalWrite(LED_PIN, LED_STATE);
+    digitalWrite(STATUS_PIN, LED_STATE);
 }
 
 // ------------------------------------------------------------
@@ -197,8 +184,8 @@ void writeLEDs(int colorBytes[], int length)
     FastLED.show();
 }
 
-void readSensors()
-{
-    my3IMU.getValues(val);
-    my3IMU.getYawPitchRoll(ypr);
-}
+// void readSensors()
+// {
+//     my3IMU.getValues(val);
+//     my3IMU.getYawPitchRoll(ypr);
+// }
