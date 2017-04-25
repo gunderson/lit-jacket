@@ -14,21 +14,21 @@ CRGB leds[NUM_LEDS];
 #define BRIGHTNESS 96
 #define FRAMES_PER_SECOND 30
 
-int STRIP_STATE = 0;
+byte STRIP_STATE = 0;
 
-int LED_STATE = HIGH;
+byte LED_STATE = HIGH;
 
 // ------------------------------------------------------------
 // TXRX VARS
 // ------------------------------------------------------------
 
 #define HWSERIAL Serial1
-int BAUDRATE = 3000000;
-int activeCommand = 0;
+unsigned int BAUDRATE = 921600;
+byte activeCommand = 0;
 
-int commandDataLength[] = {0, 0, NUM_LEDS * 3};
-int dataBuffer[1024]; // rgb values for each LED
-int bufferIndex = 0;
+byte commandDataLength[] = {0, 0, NUM_LEDS * 3};
+byte dataBuffer[1024]; // rgb values for each LED
+byte bufferIndex = 0;
 
 boolean commandReady = false; // whether the string is complete
 
@@ -41,7 +41,7 @@ void hwSerialEvent()
     while (HWSERIAL.available())
     {
 	// get the new byte:
-	int inByte = HWSERIAL.read();
+	byte inByte = HWSERIAL.read();
 	Serial.println(inByte);
 
 	// activeCommand == 0 means no active command
@@ -74,7 +74,7 @@ void hwSerialEvent()
 
 // ------------------------------------------------------------
 
-void executeCommand(int command)
+void executeCommand(byte command)
 {
     Serial.print("Command: ");
     Serial.println(command);
@@ -130,7 +130,9 @@ void setup()
     LEDS.setBrightness(BRIGHTNESS);
 
     // initialize comm
+    // HWSERIAL is for internal comm w/ embedded proc
     HWSERIAL.begin(BAUDRATE, SERIAL_8N1);
+    // Serial is for external monitoring
     Serial.begin(115200);
     // reset command buffer
     commandReady = false;
@@ -174,10 +176,10 @@ void toggleLedPin()
 
 // ------------------------------------------------------------
 
-void writeLEDs(int colorBytes[], int length)
+void writeLEDs(byte colorBytes[], byte length)
 {
 
-    for (int i = 0; i < NUM_LEDS; i++)
+    for (unsigned int i = 0; i < NUM_LEDS; i++)
     {
 	leds[i] = CRGB(colorBytes[i * 3], colorBytes[i * 3 + 1], colorBytes[i * 3 + 2]);
     }

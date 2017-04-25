@@ -14,7 +14,8 @@ let port;
 const COMMANDS = {
 	RESET: 0,
 	TOGGLE_LED: 1,
-	DISPLAY_PIXELS: 2
+	DISPLAY_PIXELS: 2,
+	SEND_COMPRESSED: 3
 }
 // ------------------------------------------------------------
 // DISPLAY VARS
@@ -39,7 +40,7 @@ let elapsedTime = 0;
 let lastTickTime = 0;
 let tickCount = 0;
 let tickTimeout = null;
-let ticksPerSecond = 30;
+let ticksPerSecond = 20;
 let millisPerTick = 1000 / ticksPerSecond;
 let isPlaying = false;
 
@@ -162,12 +163,120 @@ class Animator {
 	}
 }
 
+function getPalette( pixelArrays ) {
+	let palette = [];
+	let index = [];
+	for ( var i = 0; i < pixelArrays.length; i++ ) {
+		// convert linear pixel stream to vec3s
+		let color = pixelArrays[ i ]; // find a matching color
+		let colorIndex = _.reduce( palette, ( val, existingColor, ci ) => ( color[ 0 ] === existingColor[ 0 ] && color[ 1 ] === existingColor[ 1 ] && color[ 2 ] === existingColor[ 2 ] ) ? ci : val, -1 );
+		// if it doesn't already exist, add it to the color list
+		if ( colorIndex === -1 ) {
+			palette.push( color );
+			colorIndex = palette.length - 1;
+		}
+		index[ i ] = colorIndex;
+	}
+	return {
+		palette,
+		index
+	};
+}
+
+function getCompressedPaletteMap( palette, maxSize = 256 ) {
+
+	if ( palette.length > maxSize ) {
+
+		// find relative deltas to each unique color
+
+		let colorDeltas = [];
+		// for each color
+		for ( let i = 0; i < palette.length - 1; i++ ) {
+			colorDeltas[ i ] = [];
+			// find the delta to each other pixel
+			for ( let j = i + 1; i < palette.length; j++ ) {
+				colorDeltas[ i ][ j ] = getColorDist( palette[ i ], palette[ j ] );
+			}
+		}
+
+		// find smallest delta per color (most similar color)
+		// for each color
+		// find the index of the smallest delta
+		let smallestDeltaPerColor = _.map( palette, ( color, i ) => _.min( colorDeltas[ i ] ) );
+		let colorOverage = palette.length - maxSize;
+		let paletteMap = _.range( palette.length );
+
+		// combine the smallest delta relationsips until palette.length == maxSize
+		while ( colorOverage-- ) {
+			// find color that currently contains the smallest delta
+			let smallestDeltaColorIndex = _.reduce( smallestDeltaPerColor, minIndex, 0 );
+			// find the partner color with smallest delta
+			let currentColorDeltas = colorDeltas[ smallestDeltaColorIndex ];
+			let partnerColorIndex = currentColorDeltas.indexOf( smallestDeltaColorIndex );
+			// remove the partner smallest delta result
+			smallestDeltaPerColor[ smallestDeltaColorIndex ] = _.min( currentColorDeltas );
+			// replace partnerColor with current color in smallest delta list
+			smallestDeltaPerColor[ partnerColorIndex ] = smallestDeltaPerColor[ smallestDeltaColorIndex ];
+			// for colors up to partner color
+			for ( let i = 0; i < partnerColorIndex; i++ ) {
+				// replace the partnerColor delta
+				colorDeltas[ i ][ partnerColorIndex ] = colorDeltas[ i ][ smallestDeltaColorIndex ];
+				// recalculate the min on forward color
+				smallestDeltaPerColor[ i ] = _.min( colorDeltas[ i ] );
+			}
+			paletteMap[ partnerColorIndex ] = smallestDeltaColorIndex;
+		}
+		return paletteMap;
+	}
+	return _.range( maxSize );
+}
+// index against new palette
+function indexImageToPalette( pixelArrays, palette ) {
+	return _.map( pixelArrays, ( color, i ) => {
+		let colorIndex = _.reduce( palette, ( val, existingColor, ci ) => ( color[ 0 ] === existingColor[ 0 ] && color[ 1 ] === existingColor[ 1 ] && color[ 2 ] === existingColor[ 2 ] ) ? ci : val, -1 );
+		if ( colorIndex > -1 ) {
+			return colorIndex;
+		} else {
+			throw new Error( "Palette doesn't contain color", color );
+		}
+	} );
+}
+
+// make new pixel array (via index) to match new palette
+function remapindicies( colorIndicies, map ) {
+	return _.map( colorIndicies, ( index ) => map[ index ] );
+}
+
+
+function minIndex( memoIndex, value, index, array ) {
+	return value <= array[ memoIndex ] ? index : memoIndex;
+}
+
+function findClosestColor( palette, color, returnIndex = false ) {
+	let deltas = _.map( palette, ( palColor ) => getColorDist( palColor, color ) );
+	let closestIndex = 0;
+	for ( let i = 0; i < deltas.length; i++ ) {
+		if ( deltas[ i ] < deltas[ closestIndex ] ) {
+			closestIndex = i;
+		}
+	}
+	return returnIndex ? closestIndex : palette[ closestIndex ];
+}
+
+function getColorDist( c0, c1 ) {
+	let sqrt = Math.sqrt;
+	let dr = c1[ 0 ] - c0[ 0 ];
+	let dg = c1[ 1 ] - c0[ 1 ];
+	let db = c1[ 2 ] - c0[ 2 ];
+	return sqrt( ( dr * dr ) + ( dg * dg ) + ( db * db ) );
+}
+
 function setupPort() {
 	// let portAddress = '/dev/ttyAMA0';
 	let portAddress = '/dev/ttyMFD1';
 	port = new SerialPort( portAddress, {
 		autoOpen: false,
-		baudRate: 3000000,
+		baudRate: 921600,
 		dataBits: 8,
 		parity: 'none',
 		stopBits: 1,
@@ -256,9 +365,18 @@ function update() {
 	return true;
 };
 
+function compressPixelArrays( pixelArrays, maxColors = 64 ) {
+	let originalPalette = getPalette( pixelArrays );
+	let originalIndex = indexImageToPalette( pixelArrays, originalPalette );
+	let compressedPaletteMap = getCompressedPaletteMap( palette, maxColors );
+	let compressedIndex = remapIndicies( originalIndex, compressedPaletteMap );
+}
+
 function draw() {
 	if ( !colormapData ) return false;
 	let dataBuffer = _.flattenDeep( pixelArrays );
+
+
 	model.colors = dataBuffer;
 	sendCommand( COMMANDS.DISPLAY_PIXELS, dataBuffer );
 	return true;
